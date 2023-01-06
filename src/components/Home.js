@@ -106,9 +106,9 @@ function Home() {
                     data={mentions.payload.byDimensionAndTone}
                   />
               </div>
-              {/* <div className='card chart10'>
+              <div className='card chart10'>
                   <MentionsTable/>
-              </div> */}
+              </div>
               
           </main>
       </React.Fragment>

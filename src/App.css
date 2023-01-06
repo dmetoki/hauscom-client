@@ -256,6 +256,9 @@ header ::placeholder, .login-box ::placeholder {
         margin-bottom: 12px;
     }
 
+    .login-box {
+        margin-left: 80px !important;
+    }
 }
 
 .highlight {
@@ -275,17 +278,15 @@ header ::placeholder, .login-box ::placeholder {
     font-weight: bold;
     text-transform: uppercase;
 }
+
 .login-box {
     align-items: center;
     background-color: #212121;
-    border: solid 1px #333;
     display: flex;
-    font-size: 10vh;
-    height: calc(100vh - 90px);
+    border: solid 1px #333;
+    font-size: 8vh;
     justify-content: center;
-    margin-left: 75px;
-    margin-top: 75px;
-    position: absolute;
-    width: calc(100vw - 90px);
+    height: calc(100vh - 75px);
+    margin: 75px auto auto auto;
+    width: 94vw;
 }
-.login-box .message {}
