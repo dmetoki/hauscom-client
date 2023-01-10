@@ -5,9 +5,9 @@ function MentionsTable() {
   const [limit, setLimit] = useState(100);
   const [skip, setSkip] = useState(0);
   const [isLoading, setisLoading] = useState(false)
-//   const f = new Intl.NumberFormat("en-us", {
-//     notation: 'compact'
-//   })
+  const f = new Intl.NumberFormat("en-us", {
+    notation: 'compact'
+  })
 
 //   useEffect(() => {
 //     const callback = (entries) => {
@@ -62,6 +62,7 @@ function MentionsTable() {
 
   return (
       <React.Fragment>
+        <div className='mentions-table' id='scrollable-div'>
         <div>Date</div>
         <div>Post</div>
         <div>Source</div>
@@ -101,7 +102,7 @@ function MentionsTable() {
           <div>test 16</div>
           <div ref={target} style={{border:'solid 1px yellow',color:'yellow'}}>Loading...</div>
         </div> */}
-
+        </div>
       </React.Fragment>
   )
 }
