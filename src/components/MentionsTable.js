@@ -73,12 +73,12 @@ function MentionsTable() {
           mentions.map((item, index) => {
             return (
               <React.Fragment key={index}>
-                <div>{new Date(item.createdAt).toLocaleDateString()}</div>
+                <div>{new Date(item.published_at).toLocaleDateString()}</div>
                 <div><div className='ellipsis-container'>{item.title}</div></div>
                 <div><a href={item.source_url} target="_blank">{item.source_name}</a></div>
                 <div className={`tone ${item.tone}`}></div>
                 <div className={`social ${item.source_type}`}></div>
-                <div>{item.reach !== null ? item.reach : '-'}</div>
+                <div>{item.reach !== null ? f.format(item.reach) : '-'}</div>
               </React.Fragment>
             )
 
