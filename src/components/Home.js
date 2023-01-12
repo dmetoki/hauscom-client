@@ -9,7 +9,6 @@ import Pie from '../charts/Pie';
 import { useWindowDimension } from '../charts/useWindowDimension';
 import MentionsTable from './MentionsTable';
 import { useSetAuthentication } from '../context/AuthenticationContext';
-// import MyComponent from '../utilities/MyComonent';
 
 function Home() {
     const credentials = useSetAuthentication();

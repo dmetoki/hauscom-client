@@ -93,7 +93,6 @@
     display: grid;
     font-size: .8rem;
     grid-template-columns: 5rem 3fr 12rem 5rem 5rem 5rem;
-    grid-template-rows: repeat(101,50px);
     height: 100%;
     overflow-y: scroll;
 }
@@ -105,16 +104,6 @@
 
 .mentions-table a:hover {
     color: #fff;
-}
-
-.mentions-table > div {
-    align-items: center;
-    border-bottom: solid .5px #000;
-    display: flex;
-    overflow: hidden;
-    padding: .8rem;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
 .mentions-table .tone {
@@ -166,9 +155,20 @@
     background-image: url('../assets/video.svg');
     background-size: 24px;
 }
-.ellipsis-container {
+
+.mentions-table > div {
+    align-items: center;
+    border-bottom: solid .5px #000;
+    display: flex;
+    height: 70px;
+    padding: .8rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 100%;
+}
+
+
+#root-element {
+    overflow-y: scroll;
+    height: 220px;
 }

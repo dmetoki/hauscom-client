@@ -1,110 +1,95 @@
-import React, {useRef, useState, useEffect, useLayoutEffect} from 'react'
+import React from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 function MentionsTable() {
-  const [mentions, setMentions] = useState([]);
-  const [limit, setLimit] = useState(100);
-  const [skip, setSkip] = useState(0);
-  const [isLoading, setisLoading] = useState(false)
+  const root = useRef(null);
+  const target = useRef(null);
+  const observer = useRef(null);
+  const [skip, setSkip] = useState(-100)
+  const [temp, setTemp] = useState([])
+  const [didMount, setDidMount] = useState(false);
+
   const f = new Intl.NumberFormat("en-us", {
     notation: 'compact'
   })
 
-//   useEffect(() => {
-//     const callback = (entries) => {
-//       if(entries[0].isIntersecting) {
-//         console.log('triggered')
-//         getData()
-//       }
-//     };
-
-//     const observer = new IntersectionObserver(callback, {
-//       root: root.current
-//     })
-//     observer.observe(target.current)
-//   }, [])
-  
-//   const target = useRef(null);
-//   const root = useRef(null);
-
-//   function getData() {
-//     fetch(`https://get-mentions-a73sknldvq-uc.a.run.app?limit=${limit}&skip=${skip}`,{
-//       method: 'GET',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       }
-//     })
-//     .then(res => res.json())
-//     .then(
-//       payload => {
-//       payload.length > 0
-//       ? payload.map((item) => {
-//         let div = document.createElement('div');
-//         div.innerHTML = `${item.id}`;
-//         root.current.insertBefore(div, root.current.lastChild);
-//       })
-//       : []
-//     })
-//     .catch(err => console.error(err))
-// }
-  
   useEffect(() => {
-    fetch(`https://get-mentions-a73sknldvq-uc.a.run.app?fromDate=20221101&toDate=20221201&limit=100`,{
+    if(!didMount) {
+      setDidMount(true);
+      return;
+    }
+    fetch(`https://get-mentions-a73sknldvq-uc.a.run.app?fromDate=20221101&toDate=20221201&limit=-${skip < 0 ? 0 : skip}&skip=${skip < 0 ? 0 : skip}`, {
       method: 'GET',
       headers: {
-          'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
       }
-  })
+    })
     .then(res => res.json())
-    .then(payload => {setMentions(payload)})
+    .then(payload => {setTemp(payload)})
+    // .then(payload => {setMentions(payload)})
     .catch(err => console.error(err))
+  }, [skip]);
 
-  }, [])
+  useEffect(() => {
+    const callback = (entries) => {
+      if (entries[0].isIntersecting) {
+        setSkip(prevSkip => prevSkip + 100)
+      }
+    };
+    observer.current = new IntersectionObserver(callback, {
+      root: root.current
+    });
+    if (target.current) {
+        observer.current.observe(target.current);
+    }
+    return () => {
+        if (observer.current) {
+            observer.current.disconnect();
+        }
+    }
+  }, [target.current]);
+
+  useEffect(() => {
+    const parent = document.getElementById('root-element');
+    const lastChild = parent.lastChild;
+
+    temp.map(item => {
+      let date = document.createElement('div');
+      date.innerHTML = `${new Date(item.published_at).toLocaleDateString()}`
+      parent.insertBefore(date, lastChild);
+      let post = document.createElement('div');
+      post.innerHTML = `<div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${item.title}</div>`
+      parent.insertBefore(post, lastChild);
+      let source = document.createElement('div');
+      source.innerHTML = `<div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><a href=${item.source_url} target="_blank">${item.source_name}</a></div>`
+      parent.insertBefore(source, lastChild);
+      let tone = document.createElement('div');
+      tone.className = (`tone ${item.tone}`);
+      parent.insertBefore(tone, lastChild);
+      let social = document.createElement('div');
+      social.className = (`social ${item.source_type}`);
+      parent.insertBefore(social, lastChild);
+      let reach = document.createElement('div');
+      reach.innerHTML = `${item.reach !== null ? f.format(item.reach) : '-'}`
+      parent.insertBefore(reach, lastChild);
+    })
+    if(!temp.length > 0 && skip > 0) {
+      target.current.remove()
+    }
+  }, [temp]);
 
   return (
-      <React.Fragment>
-        <div className='mentions-table' id='scrollable-div'>
-        <div>Date</div>
-        <div>Post</div>
-        <div>Source</div>
-        <div>Tone</div>
-        <div>Social</div>
-        <div>Reach</div>
-        {
-          mentions.map((item, index) => {
-            return (
-              <React.Fragment key={index}>
-                <div>{new Date(item.published_at).toLocaleDateString()}</div>
-                <div><div className='ellipsis-container'>{item.title}</div></div>
-                <div><a href={item.source_url} target="_blank">{item.source_name}</a></div>
-                <div className={`tone ${item.tone}`}></div>
-                <div className={`social ${item.source_type}`}></div>
-                <div>{item.reach !== null ? f.format(item.reach) : '-'}</div>
-              </React.Fragment>
-            )
-
-            })}
-        {/* <div style={{border:'solid 1px red',overflowY:'scroll'}} ref={root}>
-          <div>test 1</div>
-          <div>test 2</div>
-          <div>test 3</div>
-          <div>test 4</div>
-          <div>test 5</div>
-          <div>test 6</div>
-          <div>test 7</div>
-          <div>test 8</div>
-          <div>test 9</div>
-          <div>test 10</div>
-          <div>test 11</div>
-          <div>test 12</div>
-          <div>test 13</div>
-          <div>test 14</div>
-          <div>test 15</div>
-          <div>test 16</div>
-          <div ref={target} style={{border:'solid 1px yellow',color:'yellow'}}>Loading...</div>
-        </div> */}
-        </div>
-      </React.Fragment>
-  )
+    <React.Fragment>
+      <div id="root-element" className='mentions-table' ref={root}>
+        <div>DATE</div>
+        <div>POST</div>
+        <div>SOURCE</div>
+        <div>TONE</div>
+        <div>SOCIAL</div>
+        <div>REACH</div>
+        <div ref={target}>This is the target element</div>
+      </div>
+    </React.Fragment>
+  );
 }
-
-export default MentionsTable;
+export default MentionsTable
