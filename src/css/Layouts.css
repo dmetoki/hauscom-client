@@ -172,3 +172,63 @@
     overflow-y: scroll;
     height: 220px;
 }
+
+/* Login */
+
+@media only screen and (min-width: 992px) {
+
+    .login-box input, .login-box input {
+        background: #393d44;
+        border: none; /* <-- This thing here */
+        border-radius: 3px;
+        color: #fff;
+        height: 35px;
+        min-width: 200px;
+    }
+    .login-box input:focus, .login-box input:focus {
+        outline: none;
+    }
+    .login-box ::placeholder, .login-box ::placeholder {
+        color: #808080;
+        padding-left: 5px;
+    }
+    .login-box .btn {
+        background: #a41b2f;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        height: 34px;
+        padding: 0 10px;
+        transition: background-color 0.3s ease;
+        -moz-transition: background-color 0.3s ease;
+        -webkit-transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+        background: #d13149;
+    }
+}
+
+.login-box .profile {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0.4rem 2rem 0.3rem 1rem;
+    min-height: 1.8rem;
+}
+
+.login-box input, .login-box input {
+    background: #393d44;
+    border: none; /* <-- This thing here */
+    border-radius: 3px;
+    color: #fff;
+    height: 35px;
+    margin: .5rem;
+    min-width: 200px;
+}
+
+.login-box .btn {
+    height: 30px;
+    margin-top: .5rem;
+    min-width: 200px;
+}

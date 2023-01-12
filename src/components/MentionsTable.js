@@ -26,7 +26,6 @@ function MentionsTable() {
     })
     .then(res => res.json())
     .then(payload => {setTemp(payload)})
-    // .then(payload => {setMentions(payload)})
     .catch(err => console.error(err))
   }, [skip]);
 
