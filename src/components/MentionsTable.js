@@ -5,7 +5,7 @@ function MentionsTable() {
   const root = useRef(null);
   const target = useRef(null);
   const observer = useRef(null);
-  const [skip, setSkip] = useState(-100)
+  const [skip, setSkip] = useState(-10)
   const [temp, setTemp] = useState([])
   const [didMount, setDidMount] = useState(false);
 
@@ -33,11 +33,12 @@ function MentionsTable() {
   useEffect(() => {
     const callback = (entries) => {
       if (entries[0].isIntersecting) {
-        setSkip(prevSkip => prevSkip + 100)
+        setSkip(prevSkip => prevSkip + 10)
       }
     };
     observer.current = new IntersectionObserver(callback, {
-      root: root.current
+      root: root.current,
+      rootMargin: "-100px 0px 0px 0px"
     });
     if (target.current) {
         observer.current.observe(target.current);
@@ -81,12 +82,12 @@ function MentionsTable() {
   return (
     <React.Fragment>
       <div id="root-element" className='mentions-table' ref={root}>
-        <div>DATE</div>
-        <div>POST</div>
-        <div>SOURCE</div>
-        <div>TONE</div>
-        <div>SOCIAL</div>
-        <div>REACH</div>
+        <div><b>DATE</b></div>
+        <div><b>POST</b></div>
+        <div><b>SOURCE</b></div>
+        <div><b>TONE</b></div>
+        <div><b>SOCIAL</b></div>
+        <div><b>REACH</b></div>
         <div ref={target}>This is the target element</div>
       </div>
     </React.Fragment>
