@@ -48,7 +48,7 @@ function LineArea(
             top:    width < 992 ? 65 : 80,
             right:  width < 992 ? 10 : 40,
             bottom: width < 992 ? 80 : 40,
-            left:   width < 992 ? 30 : 40
+            left:   width < 992 ? 40 : 40
         },
         series: seriesArr,
         xAxis: {
@@ -69,7 +69,13 @@ function LineArea(
             }
         },
         axisLabel: {
-            color: '#fff'
+            color: '#fff',
+            formatter: function (value) {
+                if (value >= 1000) {
+                    value = value / 1000 + 'k';
+                }
+                return value;
+            }
         },
         color: ['#ff6e54','#ffa600'],
         legend: {
@@ -77,11 +83,12 @@ function LineArea(
             icon:       'circle',
             itemWidth:  10,
             itemHeight: 10,
-            itemGap:    15,
+            itemGap:    25,
             orient:     'horizontal',
             top:        width < 992 ? undefined : 20,
             right:      width < 992 ? 10 : 40,
             bottom:     width < 992 ? 10 : undefined,
+            left:       width < 992 ? 'center' : undefined,
             textStyle: {
                 color: '#fafafa',
                 fontSize: '.8rem'

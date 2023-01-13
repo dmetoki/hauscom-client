@@ -70,7 +70,7 @@
         row-gap: 1.2rem;;
         display: grid;
         grid-template-columns: repeat(4,1fr);
-        grid-template-rows: 180px 220px 400px 400px 250px;
+        grid-template-rows: 180px 220px 400px 400px 260px;
         grid-template-areas:
             'chart1 chart2 chart2 chart3'
             'chart4 chart2 chart2 chart5'
@@ -146,7 +146,7 @@
     background-image: url('../assets/instagram.svg');
 }
 .forums {
-    background-image: url('../assets/chrome.svg');
+    background-image: url('../assets/forum.svg');
 }
 .facebook {
     background-image: url('../assets/facebook.svg');
@@ -167,10 +167,8 @@
     white-space: nowrap;
 }
 
-
 #root-element {
     overflow-y: scroll;
-    height: 220px;
 }
 
 /* Login */

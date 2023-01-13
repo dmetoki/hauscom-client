@@ -15,6 +15,7 @@ function Header() {
                   <div className='logo'>
                       <h1>Hauscom</h1>
                   </div>
+                  <div className='logo-partner'></div>
               </div>
               <div className='top-profile'>
                   <HeaderProfile/>

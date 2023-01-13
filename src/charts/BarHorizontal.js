@@ -58,20 +58,28 @@ function BarHorizontal(
       top:    width < 992 ? 65 : 80,
       right:  width < 992 ? 30 : 40,
       bottom: width < 992 ? 80 : 40,
-      left:   width < 992 ? 100 : 100
+      left:   width < 992 ? 80 : 80
     },
     series: seriesArr,
     xAxis: {
       type: 'value',
       splitLine: {
         lineStyle: {color: '#494a4f'}
-      }
+      },
     },
     yAxis: {
       type: 'category',
       data: yAxis
     },
-    axisLabel: {color: '#fff'},
+    axisLabel: {
+      color: '#fff',
+      formatter: function (value) {
+        if (value >= 1000) {
+            value = value / 1000 + 'k';
+        }
+        return value;
+    }
+    },
     color: ['#f95d6a','#848484','#008362'],
     legend: {
       show:         true,
@@ -81,8 +89,9 @@ function BarHorizontal(
       itemGap:      15,
       orient:       'horizontal',
       top:          width < 992 ? undefined : 20,
-      right:        width < 992 ? 20 : 40,
+      right:        width < 992 ? undefined : 30,
       bottom:       width < 992 ? 10 : undefined,
+      left:         width < 992 ? 70 : undefined,
       textStyle: {
         color: '#fafafa',
         fontSize: '.8rem'

@@ -87,7 +87,9 @@ function MentionsTable() {
         <div><b>TONE</b></div>
         <div><b>SOCIAL</b></div>
         <div><b>REACH</b></div>
-        <div ref={target}>This is the target element</div>
+        <div ref={target}>
+        <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </div>
       </div>
     </React.Fragment>
   );

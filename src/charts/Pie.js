@@ -36,12 +36,19 @@ function Pie(
         color:  color ? color : ['#003f5c','#444e86','#955196','#dd5182','#ff6e54','#ffa600'],
         legend: {
             show:       true,
+            // type:       'scroll',
+            pageIconSize: [10, 10],
+            pageIconColor: '#f4f4f4',
+            pageTextStyle: {
+                color: '#fff'
+            },
+            height:     '50%',
             icon:       'circle',
             itemWidth:  10,
             itemHeight: 10,
-            itemGap:    10,
+            itemGap:    15,
             orient:     'vertical',
-            top:        width < 992 ? '25%' : 50,
+            top:        width < 992 ? '25%' : 'center',
             left:       width < 992 ? 5 : '5%',
             textStyle: {
                 color: '#fafafa',
