@@ -45,7 +45,7 @@ function HeatMap(
     },
     grid: {
       top:      width < 992 ? 50 : 80,
-      right:    width < 992 ? 20 : 70,
+      right:    width < 992 ? 20 : 30,
       bottom:   width < 992 ? 40 : 40,
       left:     width < 992 ? 80 : 100
     },
@@ -76,7 +76,6 @@ function HeatMap(
     visualMap: {
       show: width < 992 ? false : true,
       min: 0,
-      max: 86,
       textStyle: {
         color: '#fff'
       },
@@ -84,9 +83,9 @@ function HeatMap(
         color: ['#003f5c', '#955196']
       },
       calculable: true,
-      orient: 'vertical',
+      orient: 'horizontal',
       right: 15,
-      top: 'center'
+      top: 18
     },
     tooltip: {
       backgroundColor: 'rgba(0,0,0,.7)',

@@ -61,7 +61,7 @@ function MentionsTable() {
       post.innerHTML = `<div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${item.title}</div>`
       parent.insertBefore(post, lastChild);
       let source = document.createElement('div');
-      source.innerHTML = `<div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><a href=${item.source_url} target="_blank">${item.source_name}</a></div>`
+      source.innerHTML = `<div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><a href=${item.url} target="_blank">${item.source_name}</a></div>`
       parent.insertBefore(source, lastChild);
       let tone = document.createElement('div');
       tone.className = (`tone ${item.tone}`);

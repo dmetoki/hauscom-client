@@ -84,6 +84,9 @@ function BarHorizontal(
     legend: {
       show:         true,
       icon:         'circle',
+      formatter: (name) => {
+        return name.charAt(0).toUpperCase() + name.substr(1);
+      },
       itemWidth:    10,
       itemHeight:   10,
       itemGap:      15,
@@ -104,7 +107,17 @@ function BarHorizontal(
       textStyle: {
         color: '#fff',
         fontSize: '11.5'
-      }
+      },
+      formatter: (params) => {
+        // Get the name and value of the data item
+        var name = params.seriesName;
+        var value = params.value;
+        // Get the color of the data item
+        var color = params.color;
+        let percent = Math.round(params.percent) + '%';
+        // Return the formatted tooltip text
+        return `<span style="display:inline-block;margin-right:7px;border-radius:5px;width:7px;height:7px;background-color: ${color};vertical-align:middle;"></span> ${name.charAt(0).toUpperCase() + name.substr(1)}: ${value}`
+    }
     }
   };
   const chartRef = useRef(null);

@@ -5,7 +5,6 @@ import { useWindowDimension } from '../charts/useWindowDimension';
 function Radar(
   {
     title,
-    color,
     legendLabels,
     channels = [{}],
     data = []
@@ -15,7 +14,7 @@ function Radar(
     useEffect(() => {}, [width, height])
 
     let groups = Object.values(data.reduce((acc, obj) => {
-      let key = obj.dimension;
+      let key = obj.dimension || obj.stakeholder;
       let position = channels.findIndex(element => element === obj.channel)
       if (!acc[key]) {
         acc[key] = {name: key, value: channels.map(() =>  0)};
@@ -28,10 +27,9 @@ function Radar(
     
     const config = {
       title: {
-        show:       title,
         text:       title.text,
-        top:        width < 992 ? 0 : 10,
-        left:       width < 992 ? 5 : 20,
+        top:        '10px',
+        left:       '10px',
         textStyle: {
           color: title.color || '#fff',
           lineHeight: 30
@@ -54,15 +52,15 @@ function Radar(
         }
       ],
       radar: {
-        center: width < 992 ? ['70%', '58%'] : ['70%', '50%'],
-        radius: width < 992 ? 50 : 120,
+        center: ['center', '46%'],
+        radius: 80,
         indicator: channels.map((item) => ({
           name: item
         })),
         max: maxValue,
         splitNumber: 5,
         axisName: {
-          color: '#fff'
+          color: '#f1f1f1'
         },
         splitLine: {
           lineStyle: {
@@ -82,13 +80,14 @@ function Radar(
         show:       true,
         icon:       'circle',
         data:       legendLabels,
-        itemWidth:  10,
+        itemWidth:  20,
         itemHeight: 10,
-        itemGap:    width < 992 ? 15 : 30,
+        itemGap:    15,
         orient:     'vertical',
-        top:        width < 992 ? '28%' : 90,
-        left:       width < 992 ? 5 : '3%',
+        bottom:     '25px',
+        left:       'center',
         pageIconSize: 10,
+        height:      '50px',
         textStyle: {
             color: '#fafafa',
             fontSize: '.8rem'

@@ -46,11 +46,12 @@ header > div {
     font-size: .6rem;
     line-height: 1.8rem;
     min-height: 1.8rem;
+    min-width: 40px;
     margin-left: 1rem;
 }
 
 .logo h1 {
-    padding-left: 3rem;
+    display: none;
 }
 
 .logo-partner {
@@ -230,6 +231,11 @@ header ::placeholder, .login-box ::placeholder {
 
     nav div svg {
         margin-left: 12px;
+    }
+
+    .logo h1 {
+        display: inherit;
+        padding-left: 3rem;
     }
 
     .hamburger {

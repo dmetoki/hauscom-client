@@ -16,8 +16,8 @@ function Pie(
         title: {
             show:   title,
             text:   title.text,
-            top:    width < 992 ? 0 : 10,
-            left:   width < 992 ? 5 : 20,
+            top:    '10px',
+            left:   '10px',
             textStyle: {
                 color: title.color || '#fff',
                 lineHeight: 30
@@ -26,8 +26,8 @@ function Pie(
         series : [
             {
                 type:'pie',
-                radius: '65%',
-                center: ['70%','50%'],
+                radius: '50%',
+                center: ['center','45%'],
                 label: {show: false},
                 selectedMode: 'single',
                 data: data
@@ -44,12 +44,16 @@ function Pie(
             },
             height:     '50%',
             icon:       'circle',
+            formatter: (name) => {
+                return name.charAt(0).toUpperCase() + name.substr(1);
+            },
             itemWidth:  10,
             itemHeight: 10,
             itemGap:    15,
             orient:     'vertical',
-            top:        width < 992 ? '25%' : 'center',
-            left:       width < 992 ? 5 : '5%',
+            bottom:     '20px',
+            left:       'center',
+            height:      '50px',
             textStyle: {
                 color: '#fafafa',
                 fontSize: '.8rem'
@@ -69,8 +73,9 @@ function Pie(
                 var value = params.value;
                 // Get the color of the data item
                 var color = params.color;
+                let percent = Math.round(params.percent) + '%';
                 // Return the formatted tooltip text
-                return '<span style="display:inline-block;margin-right:7px;border-radius:5px;width:7px;height:7px;background-color:' + color + ';vertical-align:middle;"></span>' + name + ': ' + value;
+                return `<span style="display:inline-block;margin-right:7px;border-radius:5px;width:7px;height:7px;background-color: ${color};vertical-align:middle;"></span> ${name.charAt(0).toUpperCase() + name.substr(1)}: ${value} (${percent})`
             }
         }
     };
