@@ -1,0 +1,55 @@
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.toolbar h1 {
+    font-size: 1.8rem;
+}
+
+.toolbar-right {
+    display: flex;
+    flex-direction: row;
+}
+
+.toolbar-right h2 {
+    font-size: 16px;
+    margin-left: 1rem;
+}
+
+.trend {
+    display: inline-block;
+    font-size: .9rem;;
+    font-weight: bold;
+    margin: auto 1rem;
+    min-width: 50px;
+    padding-left: 24px;
+    text-align: right;
+}
+
+.trend.up {
+    background: url('../assets/trend-up.svg') left center no-repeat;
+    background-size: 20px;
+    color: #2a9d8f;
+}
+
+.trend.down {
+    background: url('../assets/trend-down.svg') left center no-repeat;
+    background-size: 20px;
+    color: #ff7782;
+}
+
+.toolbar-highlight {
+    align-items: center;
+    background: #2e3344;
+    border: solid 1px #373e50;
+    display: flex;
+    justify-content: center;
+    margin-right: 1rem;
+    min-width: 230px;
+}
+
+.DatePicker input {
+    margin: 0;
+    min-width: 230px;
+}

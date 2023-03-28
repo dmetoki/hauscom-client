@@ -1,0 +1,72 @@
+main {
+    display: grid;
+    margin-top: 1rem;
+}
+
+.overview main {
+    grid-column-gap: 1rem;
+    column-gap: 1rem;
+    grid-row-gap: 1rem;
+    row-gap: 1rem;
+    grid-template-columns: repeat(12,1fr);
+    grid-template-rows: 220px 220px 200px 190px 400px 410px;
+    grid-template-areas: 'chart1 chart1 chart1 chart2 chart2 chart2 chart2 chart2 chart2 chart3 chart3 chart3'
+            'chart4 chart4 chart4 chart2 chart2 chart2 chart2 chart2 chart2 chart3 chart3 chart3'
+            'chart5 chart5 chart5 chart6 chart6 chart6 chart7 chart7 chart7 chart7 chart7 chart7'
+            'chart5 chart5 chart5 chart6 chart6 chart6 chart7 chart7 chart7 chart7 chart7 chart7'
+            'chart8 chart8 chart8 chart8 chart8 chart8 chart9 chart9 chart9 chart9 chart9 chart9'
+            'chart10 chart10 chart10 chart10 chart10 chart10 chart10 chart10 chart10 chart10 chart10 chart10';
+}
+
+.chart1 {
+    grid-area: chart1;
+}
+
+.chart2 {
+    grid-area: chart2;
+}
+
+.chart3 {
+    grid-area: chart3;
+}
+
+.chart4 {
+    grid-area: chart4;
+}
+
+.chart5 {
+    grid-area: chart5;
+}
+
+.chart6 {
+    grid-area: chart6;
+}
+
+.chart7 {
+    grid-area: chart7;
+}
+
+.chart8 {
+    grid-area: chart8;
+}
+
+.chart9 {
+    grid-area: chart9;
+}
+
+.chart10 {
+    grid-area: chart10;
+}
+
+.chart11 {
+    grid-area: chart11;
+}
+
+.card {
+    background-color: #2e3344;
+    box-shadow:
+        0 1px 3px rgba(0,0,0, 0.12),
+        0 1px 3px rgba(0,0,0, 0.24);
+    padding: .5rem;
+    z-index: 0;
+}

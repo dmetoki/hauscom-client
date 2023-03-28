@@ -1,0 +1,77 @@
+.mentions-table {
+    display: grid;
+    font-size: .8rem;
+    grid-template-columns: 5rem 3fr 12rem 5rem 5rem 5rem;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.mentions-table > div {
+    align-items: center;
+    border-bottom: solid .5px #202333;
+    display: flex;
+    height: 50px;
+    padding: .8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mentions-table a, .mentions-table a:visited {
+    color: #c4c4c4;
+    text-decoration: none;
+}
+
+.mentions-table a:hover {
+    color: #fff;
+}
+
+.mentions-table .tone {
+    background-position: left 0.8rem center;
+    background-repeat: no-repeat;
+    background-size: 20px;
+}
+
+.tone.negative {
+    background-image: url('../assets/tone-negative-solid.svg');
+}
+
+.tone.neutral {
+    background-image: url('../assets/tone-neutral-solid.svg');
+}
+
+.tone.positive {
+    background-image: url('../assets/tone-positive-solid.svg');
+}
+
+.mentions-table .social {
+    background-position: left 0.8rem center;
+    background-repeat: no-repeat;
+    background-size: 18px;
+}
+
+.blogs {
+    background-image: url('../assets/blogger.svg');
+}
+.web {
+    background-image: url('../assets/edge.svg');
+}
+.twitter {
+    background-image: url('../assets/twitter.svg');
+}
+.news {
+    background-image: url('../assets/chrome.svg');
+}
+.instagram {
+    background-image: url('../assets/instagram.svg');
+}
+.forums {
+    background-image: url('../assets/forum.svg');
+}
+.facebook {
+    background-image: url('../assets/facebook.svg');
+}
+.social.videos {
+    background-image: url('../assets/video.svg');
+    background-size: 24px;
+}

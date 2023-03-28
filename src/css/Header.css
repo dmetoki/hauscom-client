@@ -1,0 +1,33 @@
+header {
+    background: #202333;
+    border-bottom: solid 1px #373e50;
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 101;
+}
+
+.hamburger {
+    margin: auto 20px auto 14px;
+}
+
+.logo-menu, .top-right-menu  {
+    align-items: center;
+    display: flex;
+}
+
+.logo {
+    background: url('../assets/hauscom.svg') no-repeat left center;
+}
+
+.logo h1 {
+    font-size: 1.2rem;
+    line-height: 32px;
+    margin: 0;
+    padding-left: 40px;
+    text-transform: uppercase;
+}
