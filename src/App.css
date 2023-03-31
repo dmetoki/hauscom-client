@@ -85,3 +85,10 @@ body {
     transform: translate(24px, 0);
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .container {
+    margin: 80px 20px 20px 20px;
+    padding-bottom: 20px;
+  }
+}

@@ -53,3 +53,26 @@
     margin: 0;
     min-width: 230px;
 }
+
+@media only screen and (max-width: 600px) {
+    .toolbar {
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+    }
+
+    .toolbar-right {
+        flex-direction: column-reverse;
+        margin-top: 20px;
+        row-gap: 1.5rem;
+    }
+
+    .toolbar-highlight {
+        min-height: 50px;
+        width: 100%;
+    }
+
+    .DatePicker input {
+        min-height: 50px;
+        width: 100%;
+    }
+}

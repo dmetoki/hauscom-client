@@ -138,7 +138,7 @@ function LineAreaMirror(
         },
         color: ['#955196','#f95d6a','#ff6e54','#ffa600'],
         legend: {
-            data: ['Volume', 'Volume last month', 'Reach', 'Reach last month'],
+            data: width < 992 ? ['Volume', 'Reach'] : ['Volume', 'Volume last month', 'Reach', 'Reach last month'],
             selected: {
                 'Volume': true,
                 'Volume last month': false,
@@ -154,9 +154,7 @@ function LineAreaMirror(
             orient: 'horizontal',
             top: width < 992 ? undefined : undefined,
             left: 'center',
-            // right: width < 992 ? 10 : 40,
             bottom: width < 992 ? 10 : 20,
-            // left: width < 992 ? 'center' : undefined,
             textStyle: {
                 color: '#fafafa',
                 fontSize: '.8rem'
