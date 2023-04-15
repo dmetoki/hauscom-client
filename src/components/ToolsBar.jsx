@@ -3,7 +3,7 @@ import '../css/ToolBar.css';
 import DatePicker from 'react-modern-calendar-datepicker-2023';
 import 'react-modern-calendar-datepicker-2023/lib/DatePicker.css';
 
-function ToolBar({totals, variation}) {
+function ToolBar({totals, variation, title}) {
   const [selectedDayRange, setSelectedDayRange] = useState({
     from: {
       year: 2022,
@@ -26,7 +26,7 @@ function ToolBar({totals, variation}) {
     <React.Fragment>
         <div className='toolbar'>
           <div>
-            <h1>Overview</h1>
+            <h1>{title}</h1>
           </div>
           <div className='toolbar-right'>
             <div className='toolbar-highlight'>

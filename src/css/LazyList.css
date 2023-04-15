@@ -1,0 +1,159 @@
+.lazy-list {
+  background-color: #2e3344;
+  display: grid;
+  font-size: .8rem;
+  grid-template-columns:
+  50px minmax(auto, 1fr) minmax(auto, 250px) minmax(auto, 250px) minmax(auto, 250px) 50px 50px 50px 50px;
+  grid-template-rows: repeat(auto-fit, 50px);
+  height: 100%;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.lazy-list > div {
+  border-bottom: solid .5px #202333;
+  min-height: 50px;
+}
+
+.lazy-list .centered-text {
+  align-items: center;
+  display: flex;
+}
+
+.post-title {
+  max-width: 400px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lazy-list > div:nth-child(-n+9) {
+  position: sticky;
+  top: 0;
+  background-color: #202333;
+  z-index: 2;
+}
+
+/* Tabulated content */
+.fav {
+  background-image: url('../assets/star-disabled.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 1rem;
+  cursor: pointer;
+}
+
+.fav.selected {
+  background-image: url('../assets/star.svg');
+}
+
+.check {
+  background-image: url('../assets/check-disabled.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.check.selected {
+  background-image: url('../assets/check.svg');
+}
+
+/* tone */
+.tone {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 20px;
+}
+
+.icons {
+  background-size: 24px 24px, 15px 15px;
+  background-repeat: no-repeat, no-repeat;
+  background-position: 15px, right 12px center;
+}
+
+.positive {
+  background-image: url('../assets/tone-positive-solid.svg');
+  color: #008000;
+}
+
+.neutral {
+  background-image: url('../assets/tone-neutral-solid.svg');
+  color: #ffa500;
+}
+
+.negative {
+  background-image: url('../assets/tone-negative-solid.svg');
+  color: #d65454;
+}
+
+.social {
+  background-position: left 0.8rem center;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+
+/* header icons */
+
+.tone-header {
+  background-image: url('../assets/tone-header.svg');
+  color: #ffa500;
+}
+
+.fav.header {
+  background-image: url('../assets/star-header.svg');
+}
+
+.check.header {
+  background-image: url('../assets/check-header.svg');
+}
+
+.social-generic {
+  background: url('../assets/social-generic.svg') no-repeat;
+  background-position: left 0.8rem center;
+  background-repeat: no-repeat;
+  background-size: 18px;
+}
+
+.chatgpt {
+  background: url('../assets/chatgpt.svg') no-repeat;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 24px;
+}
+
+.tag {
+  align-items: center;
+  background-color: rgb(0, 0, 0, .2);
+  display: flex;
+  margin-right: .4rem;
+  min-height: 35px;
+  padding: 0 .8rem;
+}
+
+.tag span {
+  margin-left: 1rem;
+}
+
+.tag.purple {
+  border: solid 1px #955196;
+}
+
+.tag.purple span {
+  color: #955196;
+}
+
+.tag.orange {
+  border: solid 1px #ff6e54;
+}
+
+.tag.orange span {
+  color: #ff6e54;
+}
+
+.tag.yellow {
+  border: solid 1px #ffa600;
+}
+
+.tag.yellow span {
+  color: #ffa600;
+}

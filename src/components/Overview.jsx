@@ -1,15 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import ToolBar from './ToolsBar';
-import Header from './Header';
 import HeatMap from '../charts/HeatMap';
-import LeftNav from './LeftNav';
 import BarHorizontal from '../charts/BarHorizontal';
 import Donut from '../charts/Donut';
+import LineAreaMirror from '../charts/LineAreaMirror';
 import Pie from '../charts/Pie';
 import Radar from '../charts/Radar';
 import Table from '../charts/Table';
 import '../css/Overview.css';
-import LineAreaMirror from '../charts/LineAreaMirror';
 
 function Overview() {
   const [mentions, setMentions] = useState({
@@ -30,10 +28,9 @@ function Overview() {
   }, [])
   return (
     <React.Fragment>
-        <Header/>
-        <LeftNav/>
         <div className='container overview'>
           <ToolBar
+            title={'Overview'}
             totals={mentions.payload.totals}
             variation={((mentions.payload.totals - mentions.payload.totals_prev_month) / mentions.payload.totals_prev_month) * 100}
           />

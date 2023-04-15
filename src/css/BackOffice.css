@@ -1,0 +1,4 @@
+.backoffice main {
+    height: calc(100vh - 170px);
+    /* width: calc(100% - 120px); */
+}

@@ -10,14 +10,31 @@ nav {
     top: 60px;
     transition: all .3s ease-in-out;
     width: 60px;
-}
-
-nav:hover {
-    border-right: black solid 1px;
-    transition: width 0.3s ease-in-out;
-    width: 270px;
     z-index: 100;
 }
+
+nav.open {
+    box-shadow: 1px 0 2px rgba(0, 0, 0, 0.2);
+    transition: width 0.3s ease-in-out;
+    width: 270px;
+}
+
+ul {
+    margin: 1.7rem 18px;
+}
+
+li {
+    align-items: center;
+    display: flex;
+    font-weight: bold;
+    margin-bottom: 3rem;
+}
+
+li svg {
+    margin-bottom: 1px;
+    margin-right: 20px;
+}
+  
 
 @media only screen and (max-width: 600px) {
     nav {

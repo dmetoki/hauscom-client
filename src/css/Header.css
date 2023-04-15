@@ -12,6 +12,7 @@ header {
 }
 
 .hamburger {
+    cursor: pointer;
     margin: auto 20px auto 14px;
 }
 
