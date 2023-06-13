@@ -1,21 +1,26 @@
 import React from 'react'
 import ToolBar from './ToolsBar';
-import LazyList from './LazyList';
+import Inbox from './Inbox';
+import { MentionsProvider } from '../context/MentionsContext';
 import '../css/BackOffice.css'
+// import LazyList from './LazyList';
 
 function BackOffice() {
   return (
     <React.Fragment>
+      <MentionsProvider>
         <div className='container backoffice'>
             <ToolBar
                 title={'Back Office'}
-                totals={3440}
+                total={3440}
                 variation={-53}
             />
             <main>
-              <LazyList/>
+              {/* <LazyList/> */}
+              <Inbox/>
             </main>
         </div>
+        </MentionsProvider>
     </React.Fragment>
   )
 }

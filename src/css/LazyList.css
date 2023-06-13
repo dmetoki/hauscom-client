@@ -3,7 +3,7 @@
   display: grid;
   font-size: .8rem;
   grid-template-columns:
-  50px minmax(auto, 1fr) minmax(auto, 250px) minmax(auto, 250px) minmax(auto, 250px) 50px 50px 50px 50px;
+  50px minmax(auto, 1fr) minmax(auto, 200px) minmax(auto, 200px) 75px 75px 75px minmax(auto, 300px) 50px;
   grid-template-rows: repeat(auto-fit, 50px);
   height: 100%;
   overflow-y: scroll;
@@ -56,40 +56,6 @@
 
 .check.selected {
   background-image: url('../assets/check.svg');
-}
-
-/* tone */
-.tone {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 20px;
-}
-
-.icons {
-  background-size: 24px 24px, 15px 15px;
-  background-repeat: no-repeat, no-repeat;
-  background-position: 15px, right 12px center;
-}
-
-.positive {
-  background-image: url('../assets/tone-positive-solid.svg');
-  color: #008000;
-}
-
-.neutral {
-  background-image: url('../assets/tone-neutral-solid.svg');
-  color: #ffa500;
-}
-
-.negative {
-  background-image: url('../assets/tone-negative-solid.svg');
-  color: #d65454;
-}
-
-.social {
-  background-position: left 0.8rem center;
-  background-repeat: no-repeat;
-  background-size: 18px;
 }
 
 /* header icons */

@@ -6,7 +6,8 @@
     row-gap: 1rem;
     grid-template-columns: repeat(12,1fr);
     grid-template-rows: 220px 220px 200px 190px 400px 410px;
-    grid-template-areas: 'chart1 chart1 chart1 chart2 chart2 chart2 chart2 chart2 chart2 chart3 chart3 chart3'
+    grid-template-areas:
+            'chart1 chart1 chart1 chart2 chart2 chart2 chart2 chart2 chart2 chart3 chart3 chart3'
             'chart4 chart4 chart4 chart2 chart2 chart2 chart2 chart2 chart2 chart3 chart3 chart3'
             'chart5 chart5 chart5 chart6 chart6 chart6 chart7 chart7 chart7 chart7 chart7 chart7'
             'chart5 chart5 chart5 chart6 chart6 chart6 chart7 chart7 chart7 chart7 chart7 chart7'

@@ -1,25 +1,27 @@
 .dd {
-    padding-top: 7px;
+    /* padding-top: 7px; */
     position: relative;
-    max-width: 240px;
+    max-width: 180px;
+    min-width: 70px;
+}
+
+.dd.open {
+    margin-top: -1px;
+    margin-left: -3px;
 }
 
 .dd.open .dd-selection {
-    border: solid 1px #373e50;
-    border-bottom: none;
-    box-shadow: 0px -7px 10px rgba(0, 0, 0, 0.1)
+    box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.1)
 }
 
 .dd.open .dd-options {
-    border: solid 1px #373e50;
-    border-top: none;
-    box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.1);
     display: inherit;
 }
 
 .dd-selection {
     align-items: center;
-    background: url('../assets/arrow-down.svg') no-repeat right .8rem center, #343a4e;
+    background: url('../assets/arrow-down.svg') no-repeat right .8rem center, #292b3a;
     background-size: 1rem;
     cursor: pointer;
     display: flex;
@@ -29,7 +31,7 @@
 }
 
 .dd-options {
-    background-color: #343a4e;
+    background-color: #292b3a;
     display: none;
     position: absolute;
     width: 100%;
@@ -48,7 +50,64 @@
     cursor: pointer;
 }
 
-.dd-selection:hover {
+.dd.open .dd-selection:hover {
     background-color: #202333;
     cursor: pointer;
+}
+
+.dd-selection:hover {
+    cursor: pointer;
+}
+
+.dd-selection span {
+    pointer-events: none;
+}
+
+/* tone */
+.tone {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 1.4rem;
+  }
+  
+  .icons {
+    background-size: 1.4rem;
+    background-repeat: no-repeat;
+    background-position: left .8rem center;
+  }
+  
+  .positive {
+    background-image: url('../assets/tone-positive-solid.svg');
+    color: #008000;
+  }
+  
+  .neutral {
+    background-image: url('../assets/tone-neutral-solid.svg');
+    color: #ffa500;
+  }
+  
+  .negative {
+    background-image: url('../assets/tone-negative-solid.svg');
+    color: #d65454;
+  }
+  
+  .social {
+    background-position: left 0.8rem center;
+    background-repeat: no-repeat;
+    background-size: 1.2rem;
+  }
+
+.dd-selection.positive {
+    background: url('../assets/tone-positive-solid.svg') no-repeat left .8rem center, url('../assets/arrow-down.svg') no-repeat right .8rem center, #292b3a;
+    background-size: 1.4rem, 1rem;
+}
+
+.dd-selection.neutral {
+    background: url('../assets/tone-neutral-solid.svg') no-repeat left .8rem center, url('../assets/arrow-down.svg') no-repeat right .8rem center, #292b3a;
+    background-size: 1.4rem, 1rem;
+}
+
+.dd-selection.negative {
+    background: url('../assets/tone-negative-solid.svg') no-repeat left .8rem center, url('../assets/arrow-down.svg') no-repeat right .8rem center, #292b3a;
+    background-size: 1.4rem, 1rem;
 }

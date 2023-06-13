@@ -5,11 +5,14 @@ import Overview from './Overview';
 import Header from './Header';
 import LeftNav from './LeftNav';
 import BackOffice from './BackOffice';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { MentionsProvider } from '../context/MentionsContext';
 
 function Home() {
     const loggedIn = useAuthentication();
   return (
     <React.Fragment>
+      <Router>
         {
             !loggedIn
             ? <Login/>
@@ -17,10 +20,15 @@ function Home() {
             <React.Fragment>
               <Header/>
               <LeftNav/>
-              <BackOffice/>
-              {/* <Overview/> */}
+              <MentionsProvider>
+                <Routes>
+                  <Route exact path="/" element={<Overview/>} />
+                  <Route path="/backoffice" element={<BackOffice/>} />
+                </Routes>
+              </MentionsProvider>
             </React.Fragment>
         }
+      </Router>
     </React.Fragment>
   )
 }

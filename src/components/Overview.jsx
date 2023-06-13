@@ -8,31 +8,36 @@ import Pie from '../charts/Pie';
 import Radar from '../charts/Radar';
 import Table from '../charts/Table';
 import '../css/Overview.css';
+import {useMentionsReducer} from '../context/MentionsContext';
 
 function Overview() {
   const [mentions, setMentions] = useState({
     payload: {
-      totals: 0
+      total: 0
     }
   });
+  const {timeFrame, setTimeFrame} = useMentionsReducer();
   useEffect(() => {
-    fetch('https://get-overview-a73sknldvq-uc.a.run.app?fromDate=10&toDate=01', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${JSON.parse(localStorage.getItem('credentials')).token}`
-      }
-    })
-    .then(res => res.json())
-    .then(data => {setMentions(data)})
-  }, [])
+    if(timeFrame.from != null && timeFrame.to != null) {
+      fetch(
+        `https://get-overview-a73sknldvq-uc.a.run.app?from_date=${timeFrame.from ? `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}` : '20221001'}&to_date=${timeFrame.to ? `${timeFrame.to.year}${String(timeFrame.to.month).padStart(2, '0')}${String(timeFrame.to.day).padStart(2, '0')}` : `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}`}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem('credentials')).token}`
+        }
+      })
+      .then(res => res.json())
+      .then(data => {setMentions(data)})
+    }
+  }, [timeFrame])
   return (
     <React.Fragment>
         <div className='container overview'>
           <ToolBar
             title={'Overview'}
-            totals={mentions.payload.totals}
-            variation={((mentions.payload.totals - mentions.payload.totals_prev_month) / mentions.payload.totals_prev_month) * 100}
+            total={mentions.payload.total}
+            variation={((mentions.payload.total - mentions.payload.prev_month) / mentions.payload.prev_month) * 100}
           />
           <main>
             <div className='card chart1'>

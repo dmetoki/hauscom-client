@@ -1,13 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../css/LazyList.css';
 import Dropdown from './Dropdown';
+import { ACTIONS } from '../reducers/ACTIONS';
+import { useMentionsReducer } from '../context/MentionsContext';
 
 function LazyList() {
+  const {state, dispatch} = useMentionsReducer();
   const [records, setRecords] = useState([]);
   const [page, setPage] = useState(0);
   const [hasLoaded, setHasLoaded] = useState(false);
   const loaderRef = useRef(null);
 
+  const stakeholders = ["Autoridad","Empresa","Periodista","Profesional","Usuario"];
+  const dimensions = ["Comercial","Institucional","Laboral"];
+  const tones = ["positive","neutral","negative"];
+
+  // setup lazy loading
   useEffect(() => {
     const options = {
       root: null,
@@ -27,6 +35,7 @@ function LazyList() {
     };
   }, []);
 
+  // fetch mentions
   useEffect(() => {
     if (!hasLoaded) {
       // Only fetch once on initial load
@@ -42,11 +51,17 @@ function LazyList() {
       })
         .then(response => response.json())
         .then(data => {
-          setRecords(prevRecords => [...prevRecords, ...data]);
+          setRecords(prevRecords => [...prevRecords, ...data]);          
         })
         .catch(error => console.error(error));
     }
   }, [page, hasLoaded]);
+  
+  // feed reducer every time new mentions are fetched
+  useEffect(() => {
+    dispatch({type: ACTIONS.GET_MENTIONS, payload: records})
+  }, [records])
+  
 
   const handleObserver = entries => {
     const target = entries[0];
@@ -62,35 +77,51 @@ function LazyList() {
       <div className='centered-text'>Header title</div>
       <div className='centered-text'>Stakeholder</div>
       <div className='centered-text'>Topic</div>
-      <div className='centered-text'>Tags</div>
-      <div className='social-generic'></div>
       <div className='tone tone-header'></div>
       <div className='tone chatgpt'></div>
+      <div className='social-generic'></div>
+      <div className='centered-text'>Tags</div>
       <div className='check header'></div>
-      {records.map((record, index) => (
+      {state.map((record, index) => (
         <React.Fragment key={index}>
-          <div className='fav'></div>          
+          <div className={`fav ${record.favorite ? 'selected' : ''}`} onClick={(e) => (dispatch({type: ACTIONS.SET_FAVORITE, id: record.id, favorite: record.favorite}))}></div>          
           <div className='centered-text'>
             <div className='post-title'>
               {record.title}
             </div>
           </div>
-          <div className='dd' id={`stakeholder-${record.id}`}>
+          <div>
             <Dropdown
-              options={['option 1','option 2','option 3']}
-              selection={'option 2'}
-              ddid={record.id}
+              options={stakeholders.filter(item => item !== record.stakeholder)}
+              selection={record.stakeholder}
+              id={record.id}
+              entity={'stakeholder'}
             />
           </div>
-          <div className='dd' id={`topic-${record.id}`}><Dropdown options={['option 4','option 5','option 6']} selection={'option 5'}/></div>
+          <div>
+            <Dropdown
+              options={dimensions.filter(item => item !== record.dimension)}
+              selection={record.dimension}
+              id={record.id}
+              entity={'dimension'}
+            />
+          </div>
+          <div>
+            <Dropdown
+              options={tones.filter(item => item !== record.tone)}
+              selection={record.tone}
+              id={record.id}
+              entity={'tone'}
+              type={'icons'}
+            />
+          </div>
+          <div className={`tone ${record.tone}`}></div>
+          <div className={`social ${record.source_type}`}></div>
           <div className='centered-text'>
             <div className='tag purple'>tag <span>x</span></div>
             <div className='tag orange'>tag <span>x</span></div>
             <div className='tag yellow'>tag <span>x</span></div>
           </div>
-          <div className={`social ${record.source_type}`}></div>
-          <div className={`tone ${record.tone}`}></div>
-          <div className={`tone ${record.tone}`}></div>
           <div className='check'></div>
         </React.Fragment>
       ))}
