@@ -85,8 +85,8 @@ function Table() {
         <div><b>DATE</b></div>
         <div><b>POST</b></div>
         <div><b>SOURCE</b></div>
-        <div><b>TONE</b></div>
-        <div><b>SOCIAL</b></div>
+        <div className='icons-header'><b>TONE</b></div>
+        <div className='icons-header'><b>SOCIAL</b></div>
         <div><b>REACH</b></div>
         <div ref={target}>
         <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>

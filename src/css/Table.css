@@ -32,6 +32,10 @@
     background-size: 20px;
 }
 
+.icons-header {
+    justify-content: center;
+}
+
 .tone.negative {
     background-image: url('../assets/tone-negative-solid.svg');
 }
@@ -45,7 +49,7 @@
 }
 
 .mentions-table .social {
-    background-position: left 0.8rem center;
+    background-position: center;
     background-repeat: no-repeat;
     background-size: 18px;
 }

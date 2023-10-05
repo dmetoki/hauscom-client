@@ -13,19 +13,14 @@
 }
 
 /* For Chrome, Safari, and Opera */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width: initial;
     height: initial;
 }
 
 ::-webkit-scrollbar-thumb {
     background-color: initial;
-}
-
-.container.backoffice {
-    margin-top: 0;
-    padding-top: 80px;
-}
+} */
 
 .inbox {
     align-items: stretch;
@@ -78,7 +73,7 @@
 }
 
 .tone {
-    background: #292b3a;
+    /* background: #292b3a; */
     height: 100%;
     width: 100%;
 }

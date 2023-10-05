@@ -2,3 +2,8 @@
     height: calc(100vh - 170px);
     /* width: calc(100% - 120px); */
 }
+
+.container.backoffice {
+    margin-top: 0;
+    padding-top: 80px;
+}
