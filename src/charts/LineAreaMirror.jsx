@@ -10,7 +10,7 @@ function LineAreaMirror(
 ) {
     const [width] = useWindowDimension();
     useEffect(() => {}, [width])
-    useEffect(() => {console.log(data)}, [data])
+    // useEffect(() => {console.log(data)}, [data])
     
     const config = {
         title: {
@@ -48,7 +48,7 @@ function LineAreaMirror(
                 opacity: .2
               },
               // prettier-ignore
-              data: data != undefined ? data.find(a => a.yyyymm == 202211).dates.map(i => i.count) : []
+              data: data?.current ? data?.current.map(i => i.count) : []
               // data: [664, 981, 620, 914, 256, 498, 782, 230, 126, 730, 708, 571, 331, 595, 69, 645, 538, 27, 621, 853, 873, 691, 182, 710, 81, 859, 326, 945, 577, 619, 279]
             },
             {
@@ -62,7 +62,7 @@ function LineAreaMirror(
                   color: '#000',
                   opacity: .2
                 },
-                data: data != undefined ? data.find(a => a.yyyymm == 202210).dates.map(i => i.count) : []
+                data: data?.prev_month ? data?.prev_month.map(i => i.count) : []
                 // data: [572, 635, 36, 815, 564, 87, 252, 51, 37, 782, 586, 747, 235, 383, 243, 378, 237, 718, 997, 216, 147, 829, 70, 516, 480, 791, 804, 581, 76, 446, 313]
                 // add data for the new line
               },
@@ -78,7 +78,7 @@ function LineAreaMirror(
                 opacity: .2
               },
               // prettier-ignore
-              data: data != undefined ? data.find(a => a.yyyymm == 202211).dates.map(i => i.count) : []
+              data: data?.reach_current ? data?.reach_current.map(i => i.reach) : []
               // data: [72397, 97791, 17056, 50207, 73729, 38263, 84988, 21631, 18743, 43669, 24732, 45136, 88382, 70209, 44393, 58464, 31446, 71719, 12480, 92204, 80757, 43750, 87959, 58995, 80902, 38842, 12690, 82146, 33438, 36004, 34291]
             },
             {
@@ -93,14 +93,15 @@ function LineAreaMirror(
                   opacity: .2
                 },
                 // prettier-ignore
-                data: data != undefined ? data.find(a => a.yyyymm == 202210).dates.map(i => i.count) : []
+                data: data?.reach_prev_month ? data?.reach_prev_month.map(i => i.reach) : []
                 // data: [44676, 64854, 93689, 33939, 20563, 37130, 71112, 27902, 57675, 16730, 51866, 87311, 21758, 70594, 40281, 33661, 68635, 76538, 18146, 46773, 21056, 22889, 71525, 23031, 40816, 27355, 40563, 69322, 64399, 98391, 40113]
               }
         ],
         xAxis: [
             {
               type: 'category',
-              data: data != undefined ? data.find(a => a.yyyymm == 202211).dates.map(i => i.date) : [],
+              data: data?.current ? data?.current.map(i => `${i.date.substring(4, 6)}/${i.date.substring(6, 8)}`) : [],
+              // data: [44676, 64854, 93689, 33939, 20563, 37130, 71112, 27902, 57675, 16730, 51866, 87311, 21758, 70594, 40281, 33661, 68635, 76538, 18146, 46773, 21056, 22889, 71525, 23031, 40816, 27355, 40563, 69322, 64399, 98391, 40113],
               axisLabel: {
                 show: false // Set show to false to hide the x-axis labels
             }
@@ -108,7 +109,8 @@ function LineAreaMirror(
             {
               gridIndex: 1,
               type: 'category',
-              data: data != undefined ? data.find(a => a.yyyymm == 202211).dates.map(i => i.date) : [],
+              data: data?.current ? data?.current.map(i => `${i.date.substring(4, 6)}/${i.date.substring(6, 8)}`) : [],
+              // data: [44676, 64854, 93689, 33939, 20563, 37130, 71112, 27902, 57675, 16730, 51866, 87311, 21758, 70594, 40281, 33661, 68635, 76538, 18146, 46773, 21056, 22889, 71525, 23031, 40816, 27355, 40563, 69322, 64399, 98391, 40113],
               position: 'top'
             }
         ],

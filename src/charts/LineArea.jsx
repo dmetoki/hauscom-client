@@ -124,9 +124,9 @@ function LineArea(
             const chart = getInstanceByDom(chartRef.current);
             chart.setOption(config);
             chart.off();
-            chart.on('click', (params) => {
-                console.log(params)
-            })
+            // chart.on('click', (params) => {
+            //     console.log(params)
+            // })
         }
     }, [width, title]);
     

@@ -60,7 +60,15 @@ function BarHorizontal(
       bottom: width < 992 ? 80 : 40,
       left:   width < 992 ? 80 : 80
     },
-    series: seriesArr,
+    series: seriesArr.map(item => ({
+      ...item,
+      itemStyle: {
+          color:
+              item.name === 'positive' ? '#2a9d8f'
+              : item.name === 'neutral' ? '#ffa600'
+              : item.name === 'negative' ? '#f95d6a' : '#000'
+      }
+    })),
     xAxis: {
       type: 'value',
       splitLine: {
@@ -83,7 +91,6 @@ function BarHorizontal(
         return value;
     }
     },
-    color: ['#f95d6a','#ffa600','#2a9d8f'],
     legend: {
       show: true,
       icon: 'circle',

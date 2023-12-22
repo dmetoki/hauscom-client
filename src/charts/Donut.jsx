@@ -33,10 +33,17 @@ function Donut(
                 labelLine: {
                     show: false
                 },
-                data: data
+                data: data.map(item => ({
+                    ...item,
+                    itemStyle: {
+                        color:
+                            item.name === 'positive' ? '#2a9d8f'
+                            : item.name === 'neutral' ? '#ffa600'
+                            : item.name === 'negative' ? '#f95d6a' : '#000'
+                        }
+                }))
             }
         ],
-        color: ['#f95d6a','#ffa600','#2a9d8f'],
         legend: {
             show: true,
             icon: 'circle',

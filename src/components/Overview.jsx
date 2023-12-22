@@ -41,87 +41,119 @@ function Overview() {
           />
           <main>
             <div className='card chart1'>
-              <Donut
-                title={{text: 'By Volume'}}
-                data={mentions.payload.by_tone}
-              />
+              {
+                mentions.payload.by_volume_and_tone?.length > 0 &&
+                  <Donut
+                    title={{text: 'By Volume'}}
+                    data={mentions.payload.by_volume_and_tone}
+                  />
+              }
             </div>
             <div className='card chart2'>
-              <LineAreaMirror
-                title={{text: 'Evolution (volume vs reach)'}}
-                data={mentions.payload.by_date}
-              />
+              {
+                mentions.payload.by_date_current?.length > 0 && mentions.payload.by_date_prev_month?.length > 0 &&
+                  <LineAreaMirror
+                    title={{text: 'Evolution (volume vs reach)'}}
+                    data={mentions.payload.by_date_new}
+                  />
+              }
             </div>
             <div className='card chart3'>
-              <Pie
-                title={{text: 'By Channel'}}
-                data={mentions.payload.by_channel}
-              />
+              {
+                mentions.payload.by_channel?.length > 0 &&
+                  <Pie
+                    title={{text: 'By Channel'}}
+                    data={mentions.payload.by_channel}
+                  />
+              }
             </div>
             <div className='card chart4'>
-              <Donut
-                title={{text: 'By Reach'}}
-                data={mentions.payload.by_tone}
-              />
+              {
+                mentions.payload.by_reach_and_tone?.length > 0 &&
+                  <Donut
+                    title={{text: 'By Reach'}}
+                    data={mentions.payload.by_reach_and_tone}
+                  />
+              }
             </div>
             <div className='card chart5'>
-              <Radar
-                title={
-                  {
-                    text: 'Hot stakeholders per channel',
-                    left: 15,
-                    textStyle: {
-                      color: '#fff',
-                      lineHeight: 30
+              {
+                mentions.payload.by_stakeholder_and_channel?.length > 0 &&
+                  <Radar
+                    title={
+                      {
+                        text: 'Hot stakeholders per channel',
+                        left: 15,
+                        textStyle: {
+                          color: '#fff',
+                          lineHeight: 30
+                        }
+                      }
                     }
-                  }
-                }
-                legendLabels={mentions.payload.stakeholders}
-                channels={mentions.payload.channels}
-                data={mentions.payload.by_stakeholder_and_channel}
-              />
+                    legendLabels={mentions.payload.stakeholders}
+                    channels={mentions.payload.channels}
+                    data={mentions.payload.by_stakeholder_and_channel}
+                  />
+              }
             </div>
             <div className='card chart6'>
-              <Radar
-                title={
-                  {
-                    text: 'Hot topics per channel',
-                    left: 15,
-                    textStyle: {
-                      color: '#fff',
-                      lineHeight: 30
+              {
+                mentions.payload.channels?.length > 0 &&
+                mentions.payload.by_dimension_and_channel?.length > 0 &&
+                  <Radar
+                    title={
+                      {
+                        text: 'Hot topics per channel',
+                        left: 15,
+                        textStyle: {
+                          color: '#fff',
+                          lineHeight: 30
+                        }
+                      }
                     }
-                  }
-                }
-                legendLabels={mentions.payload.dimensions}
-                channels={mentions.payload.channels}
-                data={mentions.payload.by_dimension_and_channel}
-              />
+                    legendLabels={mentions.payload.dimensions}
+                    channels={mentions.payload.channels}
+                    data={mentions.payload.by_dimension_and_channel}
+                  />
+              }
             </div>
             <div className='card chart7'>
-              <HeatMap
-                title={{text: 'Hot Topics per stakeholder'}}
-                tooltip={{show: false}}
-                xLabels={mentions.payload.stakeholders}
-                yLabels={mentions.payload.dimensions}
-                data={mentions.payload.by_stakeholder_and_topic}
-              />
+              {
+                mentions.payload.stakeholders?.length > 0 &&
+                mentions.payload.dimensions?.length > 0 &&
+                mentions.payload.by_stakeholder_and_topic?.length > 0 &&
+                  <HeatMap
+                    title={{text: 'Hot Topics per stakeholder'}}
+                    tooltip={{show: false}}
+                    xLabels={mentions.payload.stakeholders}
+                    yLabels={mentions.payload.dimensions}
+                    data={mentions.payload.by_stakeholder_and_topic}
+                  />
+              }
             </div>
             <div className='card chart8'>
-              <BarHorizontal
-                title={{text: "Who's speaking?"}}
-                yAxis={mentions.payload.stakeholders}
-                yAxisLabels={'stakeholder'}
-                data={mentions.payload.by_stakeholder_and_tone}
-              />
+              {
+                mentions.payload.stakeholders?.length > 0 &&
+                mentions.payload.by_stakeholder_and_tone?.length > 0 &&
+                  <BarHorizontal
+                    title={{text: "Who's speaking?"}}
+                    yAxis={mentions.payload.stakeholders}
+                    yAxisLabels={'stakeholder'}
+                    data={mentions.payload.by_stakeholder_and_tone}
+                  />
+              }
             </div>
             <div className='card chart9'>
-              <BarHorizontal
-                title={{text: 'What are they talking about?'}}
-                yAxis={mentions.payload.dimensions}
-                yAxisLabels={'dimension'}
-                data={mentions.payload.by_dimension_and_tone}
-              />
+              {
+                mentions.payload.dimensions?.length > 0 &&
+                mentions.payload.by_dimension_and_tone?.length > 0 &&
+                  <BarHorizontal
+                    title={{text: 'What are they talking about?'}}
+                    yAxis={mentions.payload.dimensions}
+                    yAxisLabels={'dimension'}
+                    data={mentions.payload.by_dimension_and_tone}
+                  />
+              }
             </div>
             <div className='card chart10'>
               <Table/>
