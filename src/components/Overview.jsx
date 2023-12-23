@@ -13,7 +13,7 @@ import {useMentionsReducer} from '../context/MentionsContext';
 function Overview() {
   const [mentions, setMentions] = useState({
     payload: {
-      total: 0
+      total: null
     }
   });
   const {timeFrame, setTimeFrame} = useMentionsReducer();
@@ -51,10 +51,11 @@ function Overview() {
             </div>
             <div className='card chart2'>
               {
-                mentions.payload.by_date_current?.length > 0 && mentions.payload.by_date_prev_month?.length > 0 &&
+                mentions.payload.by_date?.current.length > 0 &&
+                mentions.payload.by_date?.reach_current.length > 0 &&
                   <LineAreaMirror
                     title={{text: 'Evolution (volume vs reach)'}}
-                    data={mentions.payload.by_date_new}
+                    data={mentions.payload.by_date}
                   />
               }
             </div>
