@@ -2,7 +2,8 @@ import React from 'react';
 import { useState, useEffect, useRef } from 'react';
 import '../css/Table.css';
 
-function Table() {
+function Table({date_range}) {
+  console.log(date_range)
   const root = useRef(null);
   const target = useRef(null);
   const observer = useRef(null);
@@ -19,7 +20,7 @@ function Table() {
       setDidMount(true);
       return;
     }
-    fetch(`https://get-mentions-a73sknldvq-uc.a.run.app?fromDate=20221101&toDate=20221201&limit=-${skip < 0 ? 0 : skip}&skip=${skip < 0 ? 0 : skip}`, {
+    fetch(`https://get-mentions-a73sknldvq-uc.a.run.app?from_date=${date_range?.from_date}&to_date=${date_range?.to_date}&limit=-${skip < 0 ? 0 : skip}&skip=${skip < 0 ? 0 : skip}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

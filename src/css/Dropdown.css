@@ -5,10 +5,10 @@
     min-width: 70px;
 }
 
-.dd.open {
+/* .dd.open {
     margin-top: -1px;
     margin-left: -3px;
-}
+} */
 
 .dd.open .dd-selection {
     box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.1)

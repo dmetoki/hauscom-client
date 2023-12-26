@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import ToolBar from './ToolsBar';
+import BreakdownFilter from './BreakdownFilter';
 import HeatMap from '../charts/HeatMap';
 import BarHorizontal from '../charts/BarHorizontal';
 import Donut from '../charts/Donut';
@@ -156,8 +157,20 @@ function Overview() {
                   />
               }
             </div>
+            <div className='breakdown_filter'>
+              <BreakdownFilter
+                options={mentions.payload.total}
+              />
+            </div>
             <div className='card chart10'>
-              <Table/>
+              <Table
+                date_range={
+                  {
+                    from_date: `${timeFrame.from ? `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}` : '20221001'}`,
+                    to_date: `${timeFrame.to ? `${timeFrame.to.year}${String(timeFrame.to.month).padStart(2, '0')}${String(timeFrame.to.day).padStart(2, '0')}` : '20221001'}`
+                  }
+                }
+              />
             </div>
           </main>
         </div>

@@ -11,12 +11,12 @@ export function MentionsProvider({children}) {
     const [state, dispatch] = useReducer(mentionsReducer, []);
     const [timeFrame, setTimeFrame] = useState({
         from: {
-          year: 2022,
+          year: 2023,
           month: 11,
           day: 1,
         },
         to: {
-          year: 2022,
+          year: 2023,
           month: 11,
           day: 30,
         }

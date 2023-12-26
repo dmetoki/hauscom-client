@@ -7,9 +7,6 @@ import TrendVariation from './TrendVariation';
 
 function ToolBar({total, variation, title}) {
   const {timeFrame, setTimeFrame} = useMentionsReducer();
-  useEffect(() => {
-    console.log(timeFrame)
-  }, [])
   
   return (
     <React.Fragment>

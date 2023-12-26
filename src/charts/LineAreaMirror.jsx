@@ -100,7 +100,7 @@ function LineAreaMirror(
         xAxis: [
             {
               type: 'category',
-              data: data?.current ? data?.current.map(i => `${i.date.substring(4, 6)}/${i.date.substring(6, 8)}`) : [],
+              data: data?.current ? data?.current.map(i => `${i.date.substring(6, 8)}`) : [],
               // data: [44676, 64854, 93689, 33939, 20563, 37130, 71112, 27902, 57675, 16730, 51866, 87311, 21758, 70594, 40281, 33661, 68635, 76538, 18146, 46773, 21056, 22889, 71525, 23031, 40816, 27355, 40563, 69322, 64399, 98391, 40113],
               axisLabel: {
                 show: false // Set show to false to hide the x-axis labels
@@ -109,7 +109,7 @@ function LineAreaMirror(
             {
               gridIndex: 1,
               type: 'category',
-              data: data?.current ? data?.current.map(i => `${i.date.substring(4, 6)}/${i.date.substring(6, 8)}`) : [],
+              data: data?.current ? data?.current.map(i => `${i.date.substring(6, 8)}`) : [],
               // data: [44676, 64854, 93689, 33939, 20563, 37130, 71112, 27902, 57675, 16730, 51866, 87311, 21758, 70594, 40281, 33661, 68635, 76538, 18146, 46773, 21056, 22889, 71525, 23031, 40816, 27355, 40563, 69322, 64399, 98391, 40113],
               position: 'top'
             }
