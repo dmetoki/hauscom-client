@@ -19,6 +19,7 @@ function Table({channels}) {
     })
 
     useEffect(() => {
+      console.log('skip triggered')
       fetchData()
     }, [skip])
     
