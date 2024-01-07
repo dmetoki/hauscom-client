@@ -1,20 +1,8 @@
 .mentions-table {
-    display: grid;
     font-size: .8rem;
-    grid-template-columns: 5rem 3fr 12rem 5rem 5rem 5rem;
-    height: 100%;
+    height: 430px;
     overflow-y: scroll;
-}
-
-.mentions-table > div {
-    align-items: center;
-    border-bottom: solid .5px #202333;
-    display: flex;
-    height: 50px;
-    padding: .8rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    padding: 10px;
 }
 
 .mentions-table a, .mentions-table a:visited {
@@ -81,4 +69,60 @@
 .social.videos {
     background-image: url('../assets/video.svg');
     background-size: 24px;
+}
+
+.breakdown_filter {
+    grid-area: breakdown_filter;
+    align-items: center;
+    display: flex;
+    column-gap: 20px;
+    min-height: 50px;
+}
+.breakdown_filter div {
+    flex: 1;
+    border: solid 1px #373e50;
+    font-size: .8rem;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.row > div {
+    align-items: center;
+    height: 70px;
+    display: flex;
+    flex: 1;
+}
+
+.wrapper {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.row > div:first-child {
+    flex: 1.5;
+}
+
+.row > div:nth-child(2) {
+    flex: 10;
+    overflow: hidden;
+}
+
+.row > div:nth-child(3) {
+    flex: 2;
+    overflow: hidden;
+}
+
+.row > div:nth-child(4) {
+}
+
+.row > div:nth-child(5) {
+    flex-basis: 1 50px 50px;
+}
+
+.row > div:nth-child(6) {
 }

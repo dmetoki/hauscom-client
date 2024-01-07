@@ -1,98 +1,132 @@
-import React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import BreakdownFilter from '../components/BreakdownFilter'
 import '../css/Table.css';
+import {useMentionsReducer} from '../context/MentionsContext';
 
-function Table({date_range}) {
-  console.log(date_range)
-  const root = useRef(null);
-  const target = useRef(null);
-  const observer = useRef(null);
-  const [skip, setSkip] = useState(-10)
-  const [temp, setTemp] = useState([])
-  const [didMount, setDidMount] = useState(false);
+function Table({channels}) {
+    const [items, setItems] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [skip, setSkip] = useState({value: 0});
+    const [filter, setFilter] = useState();
+    const observerTarget = useRef(null);
+    const initialLoad = useRef(true);
+    const {timeFrame, setTimeFrame} = useMentionsReducer();
+    const [isFirstRender, setIsFirstRender] = useState(true);
 
-  const f = new Intl.NumberFormat("en-us", {
-    notation: 'compact'
-  })
-
-  useEffect(() => {
-    if(!didMount) {
-      setDidMount(true);
-      return;
-    }
-    fetch(`https://get-mentions-a73sknldvq-uc.a.run.app?from_date=${date_range?.from_date}&to_date=${date_range?.to_date}&limit=-${skip < 0 ? 0 : skip}&skip=${skip < 0 ? 0 : skip}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
+    const f = new Intl.NumberFormat("en-us", {
+        notation: 'compact'
     })
-    .then(res => res.json())
-    .then(payload => {setTemp(payload)})
-    .catch(err => console.error(err))
-  }, [skip]);
 
-  useEffect(() => {
-    const callback = (entries) => {
-      if (entries[0].isIntersecting) {
-        setSkip(prevSkip => prevSkip + 10)
-      }
+    const fetchData = async () => {
+        setIsLoading(true);
+        setError(null);
+        
+        fetch(
+            `https://get-mentions-a73sknldvq-uc.a.run.app?from_date=${timeFrame.from ? `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}` : '20221001'}&to_date=${timeFrame.to ? `${timeFrame.to.year}${String(timeFrame.to.month).padStart(2, '0')}${String(timeFrame.to.day).padStart(2, '0')}` : `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}`}&limit=10&skip=${skip ? skip?.value : 0}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(
+            payload => {
+                setItems(prevItems => [...prevItems, ...payload]);
+            }
+        )
+        .catch(err => setError(err))
+        .finally(setIsLoading(false))
     };
-    observer.current = new IntersectionObserver(callback, {
-      root: root.current,
-      rootMargin: "-100px 0px 0px 0px"
-    });
-    if (target.current) {
-        observer.current.observe(target.current);
-    }
-    return () => {
-        if (observer.current) {
-            observer.current.disconnect();
+    
+    useEffect(() => {
+      if(initialLoad.current) {
+        setIsFirstRender(false);
+      }
+      // if(!initialLoad.current && !isFirstRender) {}
+    
+      return () => {
+        initialLoad.current = false
+      }
+    }, [])
+
+    useEffect(() => {
+      const observer = new IntersectionObserver(
+        entries => {
+          if (entries[0].isIntersecting) {
+            setSkip(
+              prevSkip => {return {...prevSkip, value: prevSkip.value + 10};
+            })
+          }
+        },
+        {
+          threshold: 1,
+          rootMargin: "-70px 0px 0px 0px"
         }
-    }
-  }, [target.current]);
+      );
+    
+      if (observerTarget.current) {
+        observer.observe(observerTarget.current);
+      }
+      
+      return () => {
+        if (observerTarget.current) {
+          observer.unobserve(observerTarget.current);
+        }
+      };
+    }, [observerTarget]);
+    
+    useEffect(() => {
+      if(timeFrame.to !== null && !isFirstRender) {
+        setItems([])
+        setSkip(prevSkip => {return {...prevSkip, value: 0}})
+      }
+    }, [timeFrame]);
 
-  useEffect(() => {
-    const parent = document.getElementById('root-element');
-    const lastChild = parent.lastChild;
+    useEffect(() => {
+      if(!isFirstRender) {
+        setItems([])
+        setSkip(prevSkip => {return {...prevSkip, value: 0}})
+      }
+    }, [filter]);
 
-    temp.map(item => {
-      let date = document.createElement('div');
-      date.innerHTML = `${new Date(item.published_at).toLocaleDateString()}`
-      parent.insertBefore(date, lastChild);
-      let post = document.createElement('div');
-      post.innerHTML = `<div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${item.title}</div>`
-      parent.insertBefore(post, lastChild);
-      let source = document.createElement('div');
-      source.innerHTML = `<div style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"><a href=${item.url} target="_blank">${item.source_name}</a></div>`
-      parent.insertBefore(source, lastChild);
-      let tone = document.createElement('div');
-      tone.className = (`tone ${item.tone}`);
-      parent.insertBefore(tone, lastChild);
-      let social = document.createElement('div');
-      social.className = (`social ${item.source_type}`);
-      parent.insertBefore(social, lastChild);
-      let reach = document.createElement('div');
-      reach.innerHTML = `${item.reach !== null ? f.format(item.reach) : '-'}`
-      parent.insertBefore(reach, lastChild);
-    })
-    if(!temp.length > 0 && skip > 0) {
-      target.current.remove()
-    }
-  }, [temp]);
+    useEffect(() => {
+      if(!initialLoad.current) {
+        fetchData();
+      }
+    }, [skip]);
+      
 
   return (
     <React.Fragment>
-      <div id="root-element" className='mentions-table' ref={root}>
-        <div><b>DATE</b></div>
-        <div><b>POST</b></div>
-        <div><b>SOURCE</b></div>
-        <div className='icons-header'><b>TONE</b></div>
-        <div className='icons-header'><b>SOCIAL</b></div>
-        <div><b>REACH</b></div>
-        <div ref={target}>
-        <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+      <BreakdownFilter
+        channels={channels}
+      />
+        <div className='mentions-table'>
+            <div>
+                {
+                    items.map((item, index) => (
+                        <div className='row' key={index}>
+                            <div>{`${new Date(item.published_at).toLocaleDateString()}`}</div>
+                            <div>
+                                <div className='wrapper'>{item.title}</div>
+                            </div>
+                            <div>
+                                <div className='wrapper'>
+                                    <a href={item.url}>{item.source_name}</a>
+                                </div>
+                            </div>
+                            <div className={`tone ${item.tone}`}></div>
+                            <div className={`social ${item.source_type}`}></div>
+                            <div>{item.reach !== null ? f.format(item.reach) : '-'}</div>
+                        </div>
+                    ))
+                }
+            </div>
+            {isLoading && <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>}
+            {error && <p>Error: {error.message}</p>}
+            <div ref={observerTarget}></div>
         </div>
-      </div>
     </React.Fragment>
   );
 }

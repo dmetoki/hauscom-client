@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import ToolBar from './ToolsBar';
-import BreakdownFilter from './BreakdownFilter';
 import HeatMap from '../charts/HeatMap';
 import BarHorizontal from '../charts/BarHorizontal';
 import Donut from '../charts/Donut';
@@ -18,20 +17,39 @@ function Overview() {
     }
   });
   const {timeFrame, setTimeFrame} = useMentionsReducer();
+  const initialLoad = useRef(true);
+  const [isFirstRender, setIsFirstRender] = useState(true);
+
+  const fetchOverviewData = async () => {
+    fetch(
+      `https://get-overview-a73sknldvq-uc.a.run.app?from_date=${timeFrame.from ? `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}` : '20221001'}&to_date=${timeFrame.to ? `${timeFrame.to.year}${String(timeFrame.to.month).padStart(2, '0')}${String(timeFrame.to.day).padStart(2, '0')}` : `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}`}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${JSON.parse(localStorage.getItem('credentials')).token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {setMentions(data)})
+  }
+
   useEffect(() => {
-    if(timeFrame.from != null && timeFrame.to != null) {
-      fetch(
-        `https://get-overview-a73sknldvq-uc.a.run.app?from_date=${timeFrame.from ? `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}` : '20221001'}&to_date=${timeFrame.to ? `${timeFrame.to.year}${String(timeFrame.to.month).padStart(2, '0')}${String(timeFrame.to.day).padStart(2, '0')}` : `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}`}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${JSON.parse(localStorage.getItem('credentials')).token}`
-        }
-      })
-      .then(res => res.json())
-      .then(data => {setMentions(data)})
+    if(initialLoad.current) {
+      console.log('first overview render')
+      setIsFirstRender(false);
+      fetchOverviewData()
+    }
+
+    if(!initialLoad.current && !isFirstRender && timeFrame.to) {
+      console.log('second overview render')
+      fetchOverviewData()
+  }
+  
+    return () => {
+      initialLoad.current = false
     }
   }, [timeFrame])
+
   return (
     <React.Fragment>
         <div className='container overview'>
@@ -157,19 +175,16 @@ function Overview() {
                   />
               }
             </div>
-            <div className='breakdown_filter'>
-              <BreakdownFilter
-                options={mentions.payload.total}
-              />
-            </div>
             <div className='card chart10'>
               <Table
-                date_range={
+                timeframe={
                   {
-                    from_date: `${timeFrame.from ? `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}` : '20221001'}`,
-                    to_date: `${timeFrame.to ? `${timeFrame.to.year}${String(timeFrame.to.month).padStart(2, '0')}${String(timeFrame.to.day).padStart(2, '0')}` : '20221001'}`
+                    from: `${timeFrame.from ? `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}` : '20221001'}`,
+                    to: `${timeFrame.to ? `${timeFrame.to.year}${String(timeFrame.to.month).padStart(2, '0')}${String(timeFrame.to.day).padStart(2, '0')}` : '20221001'}`
                   }
                 }
+                channels={mentions.payload.channels}
+                sources={mentions.payload.sources}
               />
             </div>
           </main>

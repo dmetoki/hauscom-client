@@ -21,9 +21,12 @@ export function MentionsProvider({children}) {
           day: 30,
         }
       })
+      const [filter, setFilter] = useState({
+        tone: ''
+      })
     
     return(
-        <MentionsReducerContext.Provider value={{state, dispatch, timeFrame, setTimeFrame}}>
+        <MentionsReducerContext.Provider value={{state, dispatch, timeFrame, setTimeFrame, filter, setFilter}}>
             {children}
         </MentionsReducerContext.Provider>
     )

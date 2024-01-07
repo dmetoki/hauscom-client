@@ -5,14 +5,13 @@
     grid-row-gap: 1rem;
     row-gap: 1rem;
     grid-template-columns: repeat(12,1fr);
-    grid-template-rows: 220px 220px 200px 190px 400px 30px 410px;
+    grid-template-rows: 220px 220px 200px 190px 400px 500px;
     grid-template-areas:
             'chart1 chart1 chart1 chart2 chart2 chart2 chart2 chart2 chart2 chart3 chart3 chart3'
             'chart4 chart4 chart4 chart2 chart2 chart2 chart2 chart2 chart2 chart3 chart3 chart3'
             'chart5 chart5 chart5 chart6 chart6 chart6 chart7 chart7 chart7 chart7 chart7 chart7'
             'chart5 chart5 chart5 chart6 chart6 chart6 chart7 chart7 chart7 chart7 chart7 chart7'
             'chart8 chart8 chart8 chart8 chart8 chart8 chart9 chart9 chart9 chart9 chart9 chart9'
-            'breakdown_filter breakdown_filter breakdown_filter breakdown_filter breakdown_filter breakdown_filter breakdown_filter breakdown_filter breakdown_filter breakdown_filter breakdown_filter breakdown_filter'
             'chart10 chart10 chart10 chart10 chart10 chart10 chart10 chart10 chart10 chart10 chart10 chart10';
 }
 
@@ -79,16 +78,4 @@
 
 .chart11 {
     grid-area: chart11;
-}
-.breakdown_filter {
-    grid-area: breakdown_filter;
-    align-items: center;
-    display: flex;
-    column-gap: 20px;
-}
-.breakdown_filter div {
-    flex: 1;
-    background: #2e3344;
-    border: solid 1px #373e50;
-    font-size: .8rem;
 }
