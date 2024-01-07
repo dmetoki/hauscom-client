@@ -35,13 +35,11 @@ function Overview() {
 
   useEffect(() => {
     if(initialLoad.current) {
-      console.log('first overview render')
       setIsFirstRender(false);
       fetchOverviewData()
     }
 
     if(!initialLoad.current && !isFirstRender && timeFrame.to) {
-      console.log('second overview render')
       fetchOverviewData()
   }
   
