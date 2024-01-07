@@ -72,6 +72,7 @@ function Table({channels}) {
 
     useEffect(() => {
       if(timeFrame.to !== null) {
+        console.log('timeframe triggered')
         setItems([])
         setSkip(prevSkip => {return {...prevSkip, value: 0}})
       }
