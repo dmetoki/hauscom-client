@@ -78,7 +78,7 @@ function Table({channels}) {
     }, [observerTarget]);
 
     useEffect(() => {
-      if(timeFrame.to !== null) {
+      if(timeFrame.to !== null && !isFirstRender) {
         setItems([])
         setSkip(prevSkip => {return {...prevSkip, value: 0}})
       }
