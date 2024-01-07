@@ -19,10 +19,7 @@ function Table({channels}) {
     })
 
     useEffect(() => {
-      console.log('first load')    
-      return () => {
-        console.log('cleanup')
-      }
+      fetchData()
     }, [])
 
     useEffect(() => {
@@ -30,26 +27,26 @@ function Table({channels}) {
     }, [skip])
     
 
-    // const fetchData = async () => {
-    //     setIsLoading(true);
-    //     setError(null);
+    const fetchData = async () => {
+        setIsLoading(true);
+        setError(null);
         
-    //     fetch(
-    //         `https://get-mentions-a73sknldvq-uc.a.run.app?from_date=${timeFrame.from ? `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}` : '20221001'}&to_date=${timeFrame.to ? `${timeFrame.to.year}${String(timeFrame.to.month).padStart(2, '0')}${String(timeFrame.to.day).padStart(2, '0')}` : `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}`}&limit=10&skip=${skip ? skip?.value : 0}`, {
-    //         method: 'GET',
-    //         headers: {
-    //           'Content-Type': 'application/json'
-    //         }
-    //     })
-    //     .then(res => res.json())
-    //     .then(
-    //         payload => {
-    //             setItems(prevItems => [...prevItems, ...payload]);
-    //         }
-    //     )
-    //     .catch(err => setError(err))
-    //     .finally(setIsLoading(false))
-    // };
+        fetch(
+            `https://get-mentions-a73sknldvq-uc.a.run.app?from_date=${timeFrame.from ? `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}` : '20221001'}&to_date=${timeFrame.to ? `${timeFrame.to.year}${String(timeFrame.to.month).padStart(2, '0')}${String(timeFrame.to.day).padStart(2, '0')}` : `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}`}&limit=10&skip=${skip ? skip?.value : 0}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(
+            payload => {
+                setItems(prevItems => [...prevItems, ...payload]);
+            }
+        )
+        .catch(err => setError(err))
+        .finally(setIsLoading(false))
+    };
     
     // useEffect(() => {
     //   if(initialLoad.current) {
