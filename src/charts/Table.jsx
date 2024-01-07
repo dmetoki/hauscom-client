@@ -8,7 +8,7 @@ function Table({channels}) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [skip, setSkip] = useState({value: 0});
-    const [filter, setFilter] = useState();
+    // const [filter, setFilter] = useState();
     const observerTarget = useRef(null);
     const initialLoad = useRef(true);
     const {timeFrame, setTimeFrame} = useMentionsReducer();
@@ -78,7 +78,7 @@ function Table({channels}) {
     }, [observerTarget]);
 
     useEffect(() => {
-      if(timeFrame.to !== null && !isFirstRender) {
+      if(timeFrame.to !== null) {
         setItems([])
         setSkip(prevSkip => {return {...prevSkip, value: 0}})
       }
