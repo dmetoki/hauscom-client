@@ -38,13 +38,13 @@ function Table({channels}) {
         .catch(err => setError(err))
         .finally(setIsLoading(false))
     };
-    
+
+    //Prod useEffects
     useEffect(() => {
       if(initialLoad.current) {
-        fetchData()
+        fetchData();
         setIsFirstRender(false);
       }
-      // if(!initialLoad.current && !isFirstRender) {}
     
       return () => {
         initialLoad.current = false
@@ -76,13 +76,37 @@ function Table({channels}) {
         }
       };
     }, [observerTarget]);
-    
+
     useEffect(() => {
-      if(timeFrame.to !== null && !isFirstRender) {
+      if(timeFrame.to !== null) {
         setItems([])
         setSkip(prevSkip => {return {...prevSkip, value: 0}})
       }
     }, [timeFrame]);
+
+    useEffect(() => {
+      fetchData();
+    }, [skip]);
+
+    
+    // Dev useEffects
+    // useEffect(() => {
+    //   if(initialLoad.current) {
+    //     setIsFirstRender(false);
+    //   }
+    //   // if(!initialLoad.current && !isFirstRender) {}
+    
+    //   return () => {
+    //     initialLoad.current = false
+    //   }
+    // }, [])
+
+    // useEffect(() => {
+    //   if(timeFrame.to !== null && !isFirstRender) {
+    //     setItems([])
+    //     setSkip(prevSkip => {return {...prevSkip, value: 0}})
+    //   }
+    // }, [timeFrame]);
 
     // useEffect(() => {
     //   if(!isFirstRender) {
@@ -91,11 +115,11 @@ function Table({channels}) {
     //   }
     // }, [filter]);
 
-    useEffect(() => {
-      if(!initialLoad.current) {
-        fetchData();
-      }
-    }, [skip]);
+    // useEffect(() => {
+    //   if(!initialLoad.current) {
+    //     fetchData();
+    //   }
+    // }, [skip]);
       
 
   return (
