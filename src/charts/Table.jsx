@@ -8,7 +8,7 @@ function Table({channels}) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [skip, setSkip] = useState({value: 0});
-    // const [filter, setFilter] = useState();
+    const [filter, setFilter] = useState();
     const observerTarget = useRef(null);
     const initialLoad = useRef(true);
     const {timeFrame, setTimeFrame} = useMentionsReducer();
@@ -18,91 +18,78 @@ function Table({channels}) {
         notation: 'compact'
     })
 
-    const fetchData = async () => {
-        setIsLoading(true);
-        setError(null);
-        
-        fetch(
-            `https://get-mentions-a73sknldvq-uc.a.run.app?from_date=${timeFrame.from ? `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}` : '20221001'}&to_date=${timeFrame.to ? `${timeFrame.to.year}${String(timeFrame.to.month).padStart(2, '0')}${String(timeFrame.to.day).padStart(2, '0')}` : `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}`}&limit=10&skip=${skip ? skip?.value : 0}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-        })
-        .then(res => res.json())
-        .then(
-            payload => {
-                setItems(prevItems => [...prevItems, ...payload]);
-            }
-        )
-        .catch(err => setError(err))
-        .finally(setIsLoading(false))
-    };
-
-    //Prod useEffects
     useEffect(() => {
-      if(initialLoad.current) {
-        // fetchData();
-        setIsFirstRender(false);
-      }
-    
+      console.log('first load')    
       return () => {
-        initialLoad.current = false
+        console.log('cleanup')
       }
     }, [])
 
     useEffect(() => {
-      const observer = new IntersectionObserver(
-        entries => {
-          if (entries[0].isIntersecting) {
-            setSkip(
-              prevSkip => {return {...prevSkip, value: prevSkip.value + 10};
-            })
-          }
-        },
-        {
-          threshold: 1,
-          rootMargin: "-70px 0px 0px 0px"
-        }
-      );
+      console.log('skip load')    
+    }, [skip])
     
-      if (observerTarget.current) {
-        observer.observe(observerTarget.current);
-      }
-      
-      return () => {
-        if (observerTarget.current) {
-          observer.unobserve(observerTarget.current);
-        }
-      };
-    }, [observerTarget]);
 
-    useEffect(() => {
-      if(timeFrame.to !== null) {
-        setItems([])
-        setSkip(prevSkip => {return {...prevSkip, value: 0}})
-      }
-    }, [timeFrame]);
-
-    useEffect(() => {
-      if(!initialLoad.current) {
-        fetchData();
-      }
-    }, [skip]);
-
+    // const fetchData = async () => {
+    //     setIsLoading(true);
+    //     setError(null);
+        
+    //     fetch(
+    //         `https://get-mentions-a73sknldvq-uc.a.run.app?from_date=${timeFrame.from ? `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}` : '20221001'}&to_date=${timeFrame.to ? `${timeFrame.to.year}${String(timeFrame.to.month).padStart(2, '0')}${String(timeFrame.to.day).padStart(2, '0')}` : `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}`}&limit=10&skip=${skip ? skip?.value : 0}`, {
+    //         method: 'GET',
+    //         headers: {
+    //           'Content-Type': 'application/json'
+    //         }
+    //     })
+    //     .then(res => res.json())
+    //     .then(
+    //         payload => {
+    //             setItems(prevItems => [...prevItems, ...payload]);
+    //         }
+    //     )
+    //     .catch(err => setError(err))
+    //     .finally(setIsLoading(false))
+    // };
     
-    // Dev useEffects
     // useEffect(() => {
     //   if(initialLoad.current) {
     //     setIsFirstRender(false);
     //   }
-    //   // if(!initialLoad.current && !isFirstRender) {}
+    //   if(!initialLoad.current && !isFirstRender) {
+    //     fetchData()
+    //   }
     
     //   return () => {
     //     initialLoad.current = false
     //   }
     // }, [])
 
+    // useEffect(() => {
+    //   const observer = new IntersectionObserver(
+    //     entries => {
+    //       if (entries[0].isIntersecting) {
+    //         setSkip(
+    //           prevSkip => {return {...prevSkip, value: prevSkip.value + 10};
+    //         })
+    //       }
+    //     },
+    //     {
+    //       threshold: 1,
+    //       rootMargin: "-70px 0px 0px 0px"
+    //     }
+    //   );
+    
+    //   if (observerTarget.current) {
+    //     observer.observe(observerTarget.current);
+    //   }
+      
+    //   return () => {
+    //     if (observerTarget.current) {
+    //       observer.unobserve(observerTarget.current);
+    //     }
+    //   };
+    // }, [observerTarget]);
+    
     // useEffect(() => {
     //   if(timeFrame.to !== null && !isFirstRender) {
     //     setItems([])
