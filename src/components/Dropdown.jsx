@@ -15,7 +15,7 @@ function Dropdown({options, selection, id, filter, setFilter}) {
                 <div className="dd-options">
                     {options && options.map((item, index) => {
                         return (
-                            <div className='dd-item' key={index} onClick={() => (setFilter({tone: item}))}>
+                            <div className='dd-item' key={index} onClick={() => (setFilter(prevFilter => {return{...prevFilter, tone: item}}))}>
                                 {<span>{item}</span>}
                             </div>
                         )

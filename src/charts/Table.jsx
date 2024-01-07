@@ -12,7 +12,8 @@ function Table({channels}) {
     const initialLoad = useRef(true);
     const {timeFrame, setTimeFrame} = useMentionsReducer();
     const [filter, setFilter] = useState({
-        tone: null
+        tone: null,
+        channel: 'test'
     });
 
     const f = new Intl.NumberFormat("en-us", {
@@ -24,7 +25,7 @@ function Table({channels}) {
         setError(null);
         
         fetch(
-            `https://get-mentions-a73sknldvq-uc.a.run.app?from_date=${timeFrame.from ? `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}` : '20221001'}&to_date=${timeFrame.to ? `${timeFrame.to.year}${String(timeFrame.to.month).padStart(2, '0')}${String(timeFrame.to.day).padStart(2, '0')}` : `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}`}&limit=10&skip=${skip ? skip?.value : 0}`, {
+            `https://get-mentions-a73sknldvq-uc.a.run.app?from_date=${timeFrame.from ? `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}` : '20221001'}&to_date=${timeFrame.to ? `${timeFrame.to.year}${String(timeFrame.to.month).padStart(2, '0')}${String(timeFrame.to.day).padStart(2, '0')}` : `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}`}&limit=10&skip=${skip ? skip?.value : 0}&filter=${filter.tone}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json'
@@ -79,6 +80,13 @@ function Table({channels}) {
         setSkip(prevSkip => {return {...prevSkip, value: 0}})
       }
     }, [timeFrame]);
+
+    useEffect(() => {
+      if(filter !== null && !initialLoad.current) {
+        setItems([])
+        setSkip(prevSkip => {return {...prevSkip, value: 0}})
+      }
+    }, [filter]);
 
   return (
     <React.Fragment>
