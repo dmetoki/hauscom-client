@@ -43,7 +43,9 @@ function Table({channels}) {
       if(initialLoad.current) {
         setIsFirstRender(false);
       }
-      // if(!initialLoad.current && !isFirstRender) {}
+      if(!initialLoad.current && !isFirstRender) {
+        fetchData()
+      }
     
       return () => {
         initialLoad.current = false
