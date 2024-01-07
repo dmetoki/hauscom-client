@@ -43,6 +43,32 @@ function Table({channels}) {
         .catch(err => setError(err))
         .finally(setIsLoading(false))
     };
+
+    useEffect(() => {
+      const observer = new IntersectionObserver(
+        entries => {
+          if (entries[0].isIntersecting) {
+            setSkip(
+              prevSkip => {return {...prevSkip, value: prevSkip.value + 10};
+            })
+          }
+        },
+        {
+          threshold: 1,
+          rootMargin: "-70px 0px 0px 0px"
+        }
+      );
+    
+      if (observerTarget.current) {
+        observer.observe(observerTarget.current);
+      }
+      
+      return () => {
+        if (observerTarget.current) {
+          observer.unobserve(observerTarget.current);
+        }
+      };
+    }, [observerTarget]);
     
     // useEffect(() => {
     //   if(initialLoad.current) {
