@@ -42,7 +42,7 @@ function Table({channels}) {
     //Prod useEffects
     useEffect(() => {
       if(initialLoad.current) {
-        fetchData();
+        // fetchData();
         setIsFirstRender(false);
       }
     
@@ -85,7 +85,9 @@ function Table({channels}) {
     }, [timeFrame]);
 
     useEffect(() => {
-      fetchData();
+      if(!initialLoad.current) {
+        fetchData();
+      }
     }, [skip]);
 
     
