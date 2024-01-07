@@ -75,10 +75,9 @@ function Table({channels}) {
     }, [observerTarget]);
 
     useEffect(() => {
-      if(timeFrame.to !== null && !initialLoad) {
-        console.log('timeframe triggered')
-        // setItems([])
-        // setSkip(prevSkip => {return {...prevSkip, value: 0}})
+      if(timeFrame.to !== null && !initialLoad.current) {
+        setItems([])
+        setSkip(prevSkip => {return {...prevSkip, value: 0}})
       }
     }, [timeFrame]);
     
