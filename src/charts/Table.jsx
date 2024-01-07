@@ -83,12 +83,12 @@ function Table({channels}) {
       }
     }, [timeFrame]);
 
-    useEffect(() => {
-      if(!isFirstRender) {
-        setItems([])
-        setSkip(prevSkip => {return {...prevSkip, value: 0}})
-      }
-    }, [filter]);
+    // useEffect(() => {
+    //   if(!isFirstRender) {
+    //     setItems([])
+    //     setSkip(prevSkip => {return {...prevSkip, value: 0}})
+    //   }
+    // }, [filter]);
 
     useEffect(() => {
       if(!initialLoad.current) {
