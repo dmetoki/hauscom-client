@@ -21,6 +21,9 @@ function Table({channels}) {
     useEffect(() => {
       console.log('skip triggered')
       fetchData()
+      return () => {
+        initialLoad.current = false
+      }
     }, [skip])
     
 
@@ -72,7 +75,7 @@ function Table({channels}) {
     }, [observerTarget]);
 
     useEffect(() => {
-      if(timeFrame.to !== null) {
+      if(timeFrame.to !== null && !initialLoad) {
         console.log('timeframe triggered')
         // setItems([])
         // setSkip(prevSkip => {return {...prevSkip, value: 0}})
