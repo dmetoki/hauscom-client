@@ -1,10 +1,7 @@
 import React from 'react';
 import '../css/Dropdown.css'
-import { useMentionsReducer } from '../context/MentionsContext';
-import { ACTIONS } from '../reducers/ACTIONS';
 
-function Dropdown({options, selection, id}) {
-    const {filter, setFilter} = useMentionsReducer();
+function Dropdown({options, selection, id, filter, setFilter}) {
     const handleDropdown = (param) => {
         const elements = document.querySelectorAll('.dd');
         elements.forEach(element => {
@@ -18,7 +15,7 @@ function Dropdown({options, selection, id}) {
                 <div className="dd-options">
                     {options && options.map((item, index) => {
                         return (
-                            <div className='dd-item' key={index} onClick={(e) => (setFilter({tone: item}))}>
+                            <div className='dd-item' key={index} onClick={() => (setFilter({tone: item}))}>
                                 {<span>{item}</span>}
                             </div>
                         )

@@ -11,6 +11,9 @@ function Table({channels}) {
     const observerTarget = useRef(null);
     const initialLoad = useRef(true);
     const {timeFrame, setTimeFrame} = useMentionsReducer();
+    const [filter, setFilter] = useState({
+        tone: null
+    });
 
     const f = new Intl.NumberFormat("en-us", {
         notation: 'compact'
@@ -75,12 +78,14 @@ function Table({channels}) {
         setItems([])
         setSkip(prevSkip => {return {...prevSkip, value: 0}})
       }
-    }, [timeFrame]);      
+    }, [timeFrame]);
 
   return (
     <React.Fragment>
       <BreakdownFilter
         channels={channels}
+        filter={filter}
+        setFilter={setFilter}
       />
         <div className='mentions-table'>
             <div>
