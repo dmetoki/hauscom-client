@@ -41,11 +41,10 @@ function Table({channels}) {
     
     useEffect(() => {
       if(initialLoad.current) {
+        fetchData()
         setIsFirstRender(false);
       }
-      if(!initialLoad.current && !isFirstRender) {
-        fetchData()
-      }
+      // if(!initialLoad.current && !isFirstRender) {}
     
       return () => {
         initialLoad.current = false
