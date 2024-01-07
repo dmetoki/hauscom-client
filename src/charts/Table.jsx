@@ -20,10 +20,6 @@ function Table({channels}) {
 
     useEffect(() => {
       fetchData()
-    }, [])
-
-    useEffect(() => {
-      console.log('skip load')    
     }, [skip])
     
 
