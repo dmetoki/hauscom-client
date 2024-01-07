@@ -69,6 +69,13 @@ function Table({channels}) {
         }
       };
     }, [observerTarget]);
+
+    useEffect(() => {
+      if(timeFrame.to !== null) {
+        setItems([])
+        setSkip(prevSkip => {return {...prevSkip, value: 0}})
+      }
+    }, [timeFrame]);
     
     // useEffect(() => {
     //   if(initialLoad.current) {
