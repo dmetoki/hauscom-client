@@ -8,24 +8,13 @@ function Table({channels}) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [skip, setSkip] = useState({value: 0});
-    const [filter, setFilter] = useState();
     const observerTarget = useRef(null);
     const initialLoad = useRef(true);
     const {timeFrame, setTimeFrame} = useMentionsReducer();
-    const [isFirstRender, setIsFirstRender] = useState(true);
 
     const f = new Intl.NumberFormat("en-us", {
         notation: 'compact'
     })
-
-    useEffect(() => {
-      console.log('skip triggered')
-      fetchData()
-      return () => {
-        initialLoad.current = false
-      }
-    }, [skip])
-    
 
     const fetchData = async () => {
         setIsLoading(true);
@@ -47,6 +36,13 @@ function Table({channels}) {
         .catch(err => setError(err))
         .finally(setIsLoading(false))
     };
+
+    useEffect(() => {
+      fetchData()
+      return () => {
+        initialLoad.current = false
+      }
+    }, [skip])
 
     useEffect(() => {
       const observer = new IntersectionObserver(
@@ -79,67 +75,7 @@ function Table({channels}) {
         setItems([])
         setSkip(prevSkip => {return {...prevSkip, value: 0}})
       }
-    }, [timeFrame]);
-    
-    // useEffect(() => {
-    //   if(initialLoad.current) {
-    //     setIsFirstRender(false);
-    //   }
-    //   if(!initialLoad.current && !isFirstRender) {
-    //     fetchData()
-    //   }
-    
-    //   return () => {
-    //     initialLoad.current = false
-    //   }
-    // }, [])
-
-    // useEffect(() => {
-    //   const observer = new IntersectionObserver(
-    //     entries => {
-    //       if (entries[0].isIntersecting) {
-    //         setSkip(
-    //           prevSkip => {return {...prevSkip, value: prevSkip.value + 10};
-    //         })
-    //       }
-    //     },
-    //     {
-    //       threshold: 1,
-    //       rootMargin: "-70px 0px 0px 0px"
-    //     }
-    //   );
-    
-    //   if (observerTarget.current) {
-    //     observer.observe(observerTarget.current);
-    //   }
-      
-    //   return () => {
-    //     if (observerTarget.current) {
-    //       observer.unobserve(observerTarget.current);
-    //     }
-    //   };
-    // }, [observerTarget]);
-    
-    // useEffect(() => {
-    //   if(timeFrame.to !== null && !isFirstRender) {
-    //     setItems([])
-    //     setSkip(prevSkip => {return {...prevSkip, value: 0}})
-    //   }
-    // }, [timeFrame]);
-
-    // useEffect(() => {
-    //   if(!isFirstRender) {
-    //     setItems([])
-    //     setSkip(prevSkip => {return {...prevSkip, value: 0}})
-    //   }
-    // }, [filter]);
-
-    // useEffect(() => {
-    //   if(!initialLoad.current) {
-    //     fetchData();
-    //   }
-    // }, [skip]);
-      
+    }, [timeFrame]);      
 
   return (
     <React.Fragment>
