@@ -80,14 +80,14 @@ function Table({channels}) {
     useEffect(() => {
       if(timeFrame.to !== null && !initialLoad.current) {
         setItems([])
-        setSkip(prevSkip => {return {...prevSkip, counter: prevSkip.value + 1, value: 0}})
+        setSkip(prevSkip => ({ counter: prevSkip.counter + 1, value: 0 }))
       }
     }, [timeFrame]);
 
     useEffect(() => {
       if(filter !== null && !initialLoad.current) {
         setItems([])
-        setSkip(prevSkip => {return {...prevSkip, counter: prevSkip.value + 1, value: 0}})
+        setSkip(prevSkip => ({ counter: prevSkip.counter + 1, value: 0 }))
       }
     }, [filter]);
 
