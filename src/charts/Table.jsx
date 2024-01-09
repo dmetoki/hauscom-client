@@ -13,7 +13,10 @@ function Table({channels}) {
     const {timeFrame, setTimeFrame} = useMentionsReducer();
     const [filter, setFilter] = useState({
         tone: null,
-        channel: 'test'
+        channel: null,
+        source: null,
+        social: null,
+        date: null
     });
 
     const f = new Intl.NumberFormat("en-us", {
@@ -77,14 +80,14 @@ function Table({channels}) {
     useEffect(() => {
       if(timeFrame.to !== null && !initialLoad.current) {
         setItems([])
-        setSkip(prevSkip => {return {...prevSkip, value: 0}})
+        setSkip(prevSkip => {return {...prevSkip, counter: prevSkip.value + 1, value: 0}})
       }
     }, [timeFrame]);
 
     useEffect(() => {
       if(filter !== null && !initialLoad.current) {
         setItems([])
-        setSkip(prevSkip => {return {...prevSkip, value: 0}})
+        setSkip(prevSkip => {return {...prevSkip, counter: prevSkip.value + 1, value: 0}})
       }
     }, [filter]);
 
