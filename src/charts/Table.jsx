@@ -7,7 +7,7 @@ function Table({channels}) {
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [skip, setSkip] = useState({value: 0});
+    const [skip, setSkip] = useState({value: 0, counter: 0});
     const observerTarget = useRef(null);
     const initialLoad = useRef(true);
     const {timeFrame, setTimeFrame} = useMentionsReducer();
@@ -28,7 +28,7 @@ function Table({channels}) {
         setError(null);
         
         fetch(
-            `https://get-mentions-a73sknldvq-uc.a.run.app?from_date=${timeFrame.from ? `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}` : '20221001'}&to_date=${timeFrame.to ? `${timeFrame.to.year}${String(timeFrame.to.month).padStart(2, '0')}${String(timeFrame.to.day).padStart(2, '0')}` : `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}`}&limit=10&skip=${skip ? skip?.value : 0}&filter=${filter.tone}`, {
+            `https://get-mentions-a73sknldvq-uc.a.run.app?from_date=${timeFrame.from ? `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}` : '20221001'}&to_date=${timeFrame.to ? `${timeFrame.to.year}${String(timeFrame.to.month).padStart(2, '0')}${String(timeFrame.to.day).padStart(2, '0')}` : `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}`}&limit=10${skip ? `&skip=${skip.value}` : ''}&filter=${filter.tone}`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json'
