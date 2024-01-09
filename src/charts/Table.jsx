@@ -78,18 +78,19 @@ function Table({channels}) {
     }, [observerTarget]);
 
     useEffect(() => {
-      if(timeFrame.to !== null) {
+      if(timeFrame.to !== null && initialLoad.current === false) {
+        console.log('timeframe change')
         setItems([])
         setSkip(prevSkip => ({ counter: prevSkip.counter + 1, value: 0 }))
       }
     }, [timeFrame]);
 
-    useEffect(() => {
-      if(filter !== null) {
-        setItems([])
-        setSkip(prevSkip => ({ counter: prevSkip.counter + 1, value: 0 }))
-      }
-    }, [filter]);
+    // useEffect(() => {
+    //   if(filter !== null) {
+    //     setItems([])
+    //     setSkip(prevSkip => ({ counter: prevSkip.counter + 1, value: 0 }))
+    //   }
+    // }, [filter]);
 
   return (
     <React.Fragment>
