@@ -78,14 +78,14 @@ function Table({channels}) {
     }, [observerTarget]);
 
     useEffect(() => {
-      if(timeFrame.to !== null && !initialLoad.current) {
+      if(timeFrame.to !== null) {
         setItems([])
         setSkip(prevSkip => ({ counter: prevSkip.counter + 1, value: 0 }))
       }
     }, [timeFrame]);
 
     useEffect(() => {
-      if(filter !== null && !initialLoad.current) {
+      if(filter !== null) {
         setItems([])
         setSkip(prevSkip => ({ counter: prevSkip.counter + 1, value: 0 }))
       }
