@@ -4,20 +4,24 @@ import '../css/Table.css';
 import {useMentionsReducer} from '../context/MentionsContext';
 
 function Table({channels}) {
+    const {timeFrame, setTimeFrame} = useMentionsReducer();
+        const tf = useRef({
+      from: {
+        day: timeFrame?.from?.day,
+        month: timeFrame?.from?.month,
+        year: timeFrame?.from?.year
+      },
+      to: {
+        day: timeFrame?.to?.day,
+        month: timeFrame?.to?.month,
+        year: timeFrame?.to?.year
+      }
+    });
     const [items, setItems] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [skip, setSkip] = useState({value: 0, counter: 0});
     const observerTarget = useRef(null);
-    const initialLoad = useRef(true);
-    const {timeFrame, setTimeFrame} = useMentionsReducer();
-    const [filter, setFilter] = useState({
-        tone: null,
-        channel: null,
-        source: null,
-        social: null,
-        date: null
-    });
+    const skip = useRef(0);
 
     const f = new Intl.NumberFormat("en-us", {
         notation: 'compact'
@@ -26,14 +30,22 @@ function Table({channels}) {
     const fetchData = async () => {
         setIsLoading(true);
         setError(null);
+
+        const url = 'https://get-mentions-a73sknldvq-uc.a.run.app';
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            from_date: tf.current.from ? `${tf.current.from.year}${String(tf.current.from.month).padStart(2, '0')}${String(tf.current.from.day).padStart(2, '0')}` : '20221001',
+            to_date: tf.current.to ? `${tf.current.to.year}${String(tf.current.to.month).padStart(2, '0')}${String(tf.current.to.day).padStart(2, '0')}` : `${tf.current.from.year}${String(tf.current.from.month).padStart(2, '0')}${String(tf.current.from.day).padStart(2, '0')}`,
+            limit: 10,
+            skip: skip ? skip.current : 0
+          })
+};
         
-        fetch(
-            `https://get-mentions-a73sknldvq-uc.a.run.app?from_date=${timeFrame.from ? `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}` : '20221001'}&to_date=${timeFrame.to ? `${timeFrame.to.year}${String(timeFrame.to.month).padStart(2, '0')}${String(timeFrame.to.day).padStart(2, '0')}` : `${timeFrame.from.year}${String(timeFrame.from.month).padStart(2, '0')}${String(timeFrame.from.day).padStart(2, '0')}`}&limit=10${skip ? `&skip=${skip.value}` : ''}&filter=${filter.tone}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-        })
+        fetch(url, options)
         .then(res => res.json())
         .then(
             payload => {
@@ -44,20 +56,30 @@ function Table({channels}) {
         .finally(setIsLoading(false))
     };
 
+    const updatePagination = () => {
+      // Read the current value of the ref
+      const currentCounterValue = skip.current;
+      // Increase it by one
+      const newCounterValue = currentCounterValue + 10;
+      // Update the ref with the new value
+      skip.current = newCounterValue;
+    }
+
     useEffect(() => {
-      fetchData()
-      return () => {
-        initialLoad.current = false
+      if(timeFrame.to !== null) {
+        setItems([])
+        skip.current = 0;
+        tf.current = timeFrame
+        fetchData()  
       }
-    }, [skip])
+    }, [timeFrame]);
 
     useEffect(() => {
       const observer = new IntersectionObserver(
         entries => {
           if (entries[0].isIntersecting) {
-            setSkip(
-              prevSkip => {return {...prevSkip, value: prevSkip.value + 10};
-            })
+            updatePagination()
+            fetchData()
           }
         },
         {
@@ -77,19 +99,10 @@ function Table({channels}) {
       };
     }, [observerTarget]);
 
-    useEffect(() => {
-      if(timeFrame.to !== null && !initialLoad.current) {
-        setItems([])
-        setSkip(prevSkip => ({ counter: prevSkip.counter + 1, value: 0 }))
-      }
-    }, [timeFrame]);
-
   return (
     <React.Fragment>
       <BreakdownFilter
         channels={channels}
-        filter={filter}
-        setFilter={setFilter}
       />
         <div className='mentions-table'>
             <div>
@@ -114,7 +127,7 @@ function Table({channels}) {
             </div>
             {isLoading && <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>}
             {error && <p>Error: {error.message}</p>}
-            <div ref={observerTarget}></div>
+            <div className='marker' ref={observerTarget}></div>
         </div>
     </React.Fragment>
   );
