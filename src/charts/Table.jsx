@@ -5,19 +5,31 @@ import {useMentionsReducer} from '../context/MentionsContext';
 
 function Table({channels}) {
     const {timeFrame, setTimeFrame} = useMentionsReducer();
-        const tf = useRef({
-      from: {
-        day: timeFrame?.from?.day,
-        month: timeFrame?.from?.month,
-        year: timeFrame?.from?.year
-      },
-      to: {
-        day: timeFrame?.to?.day,
-        month: timeFrame?.to?.month,
-        year: timeFrame?.to?.year
-      }
-    });
     const [items, setItems] = useState([]);
+    const [advFilter, setAdvFilter] = useState({
+      tone: 'all',
+      source: 'all'
+    });
+    const filter = useRef(
+      {
+        period: {
+          from: {
+            day: timeFrame?.from?.day,
+            month: timeFrame?.from?.month,
+            year: timeFrame?.from?.year
+          },
+          to: {
+            day: timeFrame?.to?.day,
+            month: timeFrame?.to?.month,
+            year: timeFrame?.to?.year
+          }
+        },
+        advanced: {
+          tone: advFilter.tone,
+          source: advFilter.source
+        }
+      }
+    );
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const observerTarget = useRef(null);
@@ -38,10 +50,12 @@ function Table({channels}) {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            from_date: tf.current.from ? `${tf.current.from.year}${String(tf.current.from.month).padStart(2, '0')}${String(tf.current.from.day).padStart(2, '0')}` : '20221001',
-            to_date: tf.current.to ? `${tf.current.to.year}${String(tf.current.to.month).padStart(2, '0')}${String(tf.current.to.day).padStart(2, '0')}` : `${tf.current.from.year}${String(tf.current.from.month).padStart(2, '0')}${String(tf.current.from.day).padStart(2, '0')}`,
+            from_date: filter.current.period.from ? `${filter.current.period.from.year}${String(filter.current.period.from.month).padStart(2, '0')}${String(filter.current.period.from.day).padStart(2, '0')}` : '20221001',
+            to_date: filter.current.period.to ? `${filter.current.period.to.year}${String(filter.current.period.to.month).padStart(2, '0')}${String(filter.current.period.to.day).padStart(2, '0')}` : `${filter.current.period.from.year}${String(filter.current.period.from.month).padStart(2, '0')}${String(filter.current.period.from.day).padStart(2, '0')}`,
             limit: 10,
-            skip: skip ? skip.current : 0
+            skip: skip ? skip.current : 0,
+            tone: filter.current.advanced.tone,
+            source: filter.current.advanced.source
           })
 };
         
@@ -69,10 +83,11 @@ function Table({channels}) {
       if(timeFrame.to !== null) {
         setItems([])
         skip.current = 0;
-        tf.current = timeFrame
+        filter.current.period = timeFrame
+        filter.current.advanced = advFilter
         fetchData()  
       }
-    }, [timeFrame]);
+    }, [timeFrame, advFilter]);
 
     useEffect(() => {
       const observer = new IntersectionObserver(
@@ -103,6 +118,8 @@ function Table({channels}) {
     <React.Fragment>
       <BreakdownFilter
         channels={channels}
+        setAdvFilter={setAdvFilter}
+        filter={filter}
       />
         <div className='mentions-table'>
             <div>

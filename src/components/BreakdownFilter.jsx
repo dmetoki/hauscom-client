@@ -1,31 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Dropdown from './Dropdown';
 
-function BreakdownFilter({channels, filter, setFilter}) {
+function BreakdownFilter({channels, setAdvFilter, filter}) {
   return (
     <React.Fragment>
       <div className='breakdown_filter'>
         <Dropdown
-          options={['positive','negative','neutral']}
-          selection={'select tone...'}
+          options={['all','positive','negative','neutral']}
+          selection={filter.current.advanced.tone}
           id={'id2'}
-          filter={filter}
-          setFilter={setFilter}
+          setAdvFilter={setAdvFilter}
         />
-        <Dropdown
+        {/* <Dropdown
           options={channels}
           selection={'select social network...'}
           id={'id3'}
-          filter={filter}
-          setFilter={setFilter}
         />
         <Dropdown
           options={['top 1%','top 10%','top 20%','bottom 10%']}
           selection={'select reach range...'}
           id={'id4'}
-          filter={filter}
-          setFilter={setFilter}
-        />
+        /> */}
       </div>
     </React.Fragment>
   )
