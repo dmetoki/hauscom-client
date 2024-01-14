@@ -86,7 +86,7 @@ function LineArea(
             itemHeight: 10,
             itemGap: 25,
             orient: 'horizontal',
-            top: width < 992 ? undefined : 20,
+            top: width < 992 ? undefined : 30,
             right: width < 992 ? 10 : 40,
             bottom: width < 992 ? 10 : undefined,
             left: width < 992 ? 'center' : undefined,

@@ -52,8 +52,8 @@ function Radar(
         }
       ],
       radar: {
-        center: ['center', '46%'],
-        radius: 80,
+        center: ['center', '45%'],
+        radius: 70,
         indicator: channels.map((item) => ({
           name: item
         })),
@@ -82,17 +82,17 @@ function Radar(
         data: legendLabels,
         itemWidth: 20,
         itemHeight: 10,
-        itemGap: 15,
+        itemGap: 20,
         orient: 'vertical',
-        bottom: '25px',
+        bottom: '20px',
         left: 'center',
-        pageIconSize: 10,
-        height: '50px',
+        pageIconSize: [10, 10],
+        height: '100px',
         textStyle: {
             color: '#fafafa',
             fontSize: '1vw'
-        },
-        width: 'calc(100% - 20px)'
+        }
+        // type: 'scroll',
       }
     };
     const chartRef = useRef(null);

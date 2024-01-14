@@ -58,7 +58,7 @@ function Pie(
             textStyle: {
                 color: '#fafafa',
                 fontSize: '.8rem'
-            }            
+            }
         },
         tooltip: {
             backgroundColor: 'rgba(0,0,0,.7)',
