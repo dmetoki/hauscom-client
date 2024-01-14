@@ -99,7 +99,7 @@ function BarHorizontal(
       },
       itemWidth: 10,
       itemHeight: 10,
-      itemGap: 15,
+      itemGap: width < 992 ? 20 : 15,
       orient: 'horizontal',
       top: width < 992 ? undefined : 20,
       right: width < 992 ? 20 : 30,
