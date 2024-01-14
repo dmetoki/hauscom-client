@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import Dropdown from './Dropdown';
+import DropdownMultiselection from './DropdownMultiselection';
 
 function BreakdownFilter({channels, setAdvFilter, filter}) {
   return (
@@ -9,6 +10,12 @@ function BreakdownFilter({channels, setAdvFilter, filter}) {
           options={['all','positive','negative','neutral']}
           selection={filter.current.advanced.tone}
           id={'id2'}
+          setAdvFilter={setAdvFilter}
+        />
+        <DropdownMultiselection
+          options={channels}
+          selection={filter.current.advanced.source}
+          id={'id3'}
           setAdvFilter={setAdvFilter}
         />
         {/* <Dropdown

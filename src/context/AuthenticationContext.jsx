@@ -17,6 +17,7 @@ export function AuthenticationProvider({children}) {
     // AuthenticationContext Provider
     const [loggedIn, setLoggedIn] = useState(false);
     const [credentials, setCredentials] = useState({});
+    const [error, setError] = useState(false);
     
     useEffect(() => {
         setLoggedIn(
@@ -27,7 +28,7 @@ export function AuthenticationProvider({children}) {
     // SetAuthenticationContext Provider
     function logIn(e, credentials) {
         e.preventDefault();
-        if(credentials !== null) {
+        if(credentials) {
             fetch('https://login-user-a73sknldvq-uc.a.run.app', {
                 method: 'POST',
                 headers: {
@@ -35,9 +36,12 @@ export function AuthenticationProvider({children}) {
                 },
                 body: JSON.stringify(credentials)
             })
-            .then(
-                res => res.json()
-            )
+            .then((res) => {
+                if (!res.ok || credentials.email === '' || credentials.password === '') {
+                    setError(true)
+                }
+                return res.json();
+            })
             .then(data => {
                 if(data.success) {
                     localStorage.setItem('credentials', JSON.stringify(data));
@@ -59,7 +63,7 @@ export function AuthenticationProvider({children}) {
     }
     return(
         <AuthenticationContext.Provider value={loggedIn}>
-            <SetAuthenticationContext.Provider value={{logIn, logOut, credentials, setCredentials}}>
+            <SetAuthenticationContext.Provider value={{logIn, logOut, credentials, setCredentials, error, setError}}>
                 {children}
             </SetAuthenticationContext.Provider>
         </AuthenticationContext.Provider>

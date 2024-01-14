@@ -111,3 +111,40 @@
     background: url('../assets/tone-negative-solid.svg') no-repeat left .8rem center, url('../assets/arrow-down.svg') no-repeat right .8rem center, #292b3a;
     background-size: 1.4rem, 1rem;
 }
+
+.dd-item.selected {
+    background-color: #3498db;
+    background: url('../assets/check-dropdown.svg') no-repeat right .8rem center, #292b3a;
+    background-size: .7rem;
+    color: #fff;
+  }
+
+.button-container {
+    border-top: solid 1px #333647;
+    display: flex;
+    flex-direction: row;
+    gap: .1rem;
+}
+
+.apply-button {
+    background-color: #333647;
+    color: #fff;
+    cursor: pointer;
+    margin: .5rem .4rem;
+    padding: 5px 12px;
+    text-align: center;
+    width: 100%;
+}
+
+.clear-button {
+    color: #fff;
+    cursor: pointer;
+    margin: .5rem .4rem;
+    padding: 5px 12px;
+    text-align: center;
+    width: 100%;
+}
+
+.apply-button:hover {
+    background-color: #202333;
+}

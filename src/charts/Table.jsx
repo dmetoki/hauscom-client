@@ -8,7 +8,7 @@ function Table({channels}) {
     const [items, setItems] = useState([]);
     const [advFilter, setAdvFilter] = useState({
       tone: 'all',
-      source: 'all'
+      source: []
     });
     const filter = useRef(
       {
