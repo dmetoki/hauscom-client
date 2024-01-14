@@ -99,15 +99,16 @@ function BarHorizontal(
       },
       itemWidth: 10,
       itemHeight: 10,
-      itemGap: width < 992 ? 25 : 15,
+      itemGap: 20,
       orient: 'horizontal',
       top: width < 992 ? undefined : 20,
       right: width < 992 ? 20 : 30,
       bottom: width < 992 ? 10 : undefined,
       textStyle: {
         color: '#fafafa',
-        fontSize: '.8rem'
-      }
+        fontSize: '1vw'
+      },
+      height: '100px'
     },
     tooltip: {
       backgroundColor: 'rgba(0,0,0,.7)',
