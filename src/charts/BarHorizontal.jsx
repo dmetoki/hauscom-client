@@ -104,7 +104,6 @@ function BarHorizontal(
       top: width < 992 ? undefined : 20,
       right: width < 992 ? 20 : 30,
       bottom: width < 992 ? 10 : undefined,
-      left: width < 992 ? undefined : undefined,
       textStyle: {
         color: '#fafafa',
         fontSize: '.8rem'

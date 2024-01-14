@@ -84,12 +84,12 @@ function LineArea(
             icon: 'circle',
             itemWidth: 10,
             itemHeight: 10,
-            itemGap: width < 992 ? 30 : 25,
+            itemGap: 25,
             orient: 'horizontal',
             top: width < 992 ? undefined : 20,
             right: width < 992 ? 10 : 40,
             bottom: width < 992 ? 10 : undefined,
-            left: width < 992 ? undefined : undefined,
+            left: width < 992 ? 'center' : undefined,
             textStyle: {
                 color: '#fafafa',
                 fontSize: '1vw'
