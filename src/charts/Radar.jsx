@@ -91,7 +91,8 @@ function Radar(
         textStyle: {
             color: '#fafafa',
             fontSize: '1vw'
-        }        
+        },
+        width: 'calc(100% - 20px)'
       }
     };
     const chartRef = useRef(null);
