@@ -92,7 +92,7 @@ function LineArea(
             left: width < 992 ? 'center' : undefined,
             textStyle: {
                 color: '#fafafa',
-                fontSize: '.8rem'
+                fontSize: '1vw'
             }            
         },
         tooltip: {

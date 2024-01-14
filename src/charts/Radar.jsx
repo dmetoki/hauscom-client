@@ -90,7 +90,7 @@ function Radar(
         height: '50px',
         textStyle: {
             color: '#fafafa',
-            fontSize: '.8rem'
+            fontSize: '1vw'
         }        
       }
     };

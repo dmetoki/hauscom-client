@@ -81,6 +81,7 @@ function Table({channels}) {
 
     useEffect(() => {
       if(timeFrame.to !== null) {
+        setIsLoading(true)
         setItems([])
         skip.current = 0;
         filter.current.period = timeFrame
@@ -124,7 +125,7 @@ function Table({channels}) {
         <div className='mentions-table'>
             <div>
                 {
-                    items.map((item, index) => (
+                    !isLoading && items.map((item, index) => (
                         <div className='row' key={index}>
                             <div>{`${new Date(item.published_at).toLocaleDateString()}`}</div>
                             <div>
