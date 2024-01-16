@@ -33,6 +33,18 @@ function LineArea(
         }
     )
 
+    const formatValue = (value) => {
+        if (value >= 1e9) {
+            return (value / 1e9).toFixed(2) + 'B';
+        } else if (value >= 1e6) {
+            return (value / 1e6).toFixed(2) + 'M';
+        } else if (value >= 1e3) {
+            return (value / 1e3).toFixed(2) + 'K';
+        } else {
+            return value.toFixed(2);
+        }
+    }
+
     const config = {
         title: {
             show: title,
@@ -102,6 +114,19 @@ function LineArea(
             textStyle: {
                 color: '#fff',
                 fontSize: '11.5'
+            },
+            formatter: (params) => {
+                // Get the name and value of the data item
+                var name = params[0].name;
+                
+                // Format the values based on magnitude (thousands, millions, billions)
+                let formattedValues = params.map((item) => {
+                    var value = item.value;
+                    return `${item.seriesName}: ${formatValue(value)}`;
+                });
+        
+                // Return the formatted tooltip text
+                return `<div>${name}</div>${formattedValues.join('<br>')}`;
             }
         }
     }

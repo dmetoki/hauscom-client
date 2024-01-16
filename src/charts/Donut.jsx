@@ -10,7 +10,17 @@ function Donut(
 ) {
     const [width, height] = useWindowDimension();
     useEffect(() => {}, [width])
-    
+    const formatValue = (value) => {
+        if (value >= 1e9) {
+            return (value / 1e9).toFixed(2) + 'B';
+        } else if (value >= 1e6) {
+            return (value / 1e6).toFixed(2) + 'M';
+        } else if (value >= 1e3) {
+            return (value / 1e3).toFixed(2) + 'k';
+        } else {
+            return value.toFixed(2);
+        }
+    }
     const config = {
         title: {
             show: title,
@@ -70,14 +80,19 @@ function Donut(
                 fontSize: '11.5'
             },
             formatter: (params) => {
-                // get the name and value of the data item
-                let name = params.name;
-                let value = params.value;
+                // Get the name and value of the data item
+                var name = params.name;
+                var value = params.value;
+        
+                // Format the value based on magnitude (thousands, millions, billions)
+                let formattedValue = formatValue(value);
+        
                 // Get the color of the data item
-                let color = params.color;
+                var color = params.color;
                 let percent = Math.round(params.percent) + '%';
+        
                 // Return the formatted tooltip text
-                return `<span style="display:inline-block;margin-right:7px;border-radius:5px;width:7px;height:7px;background-color: ${color};vertical-align:middle;"></span> ${name.charAt(0).toUpperCase() + name.substr(1)}: ${value} (${percent})`
+                return `<span style="display:inline-block;margin-right:7px;border-radius:5px;width:7px;height:7px;background-color: ${color};vertical-align:middle;"></span> ${name.charAt(0).toUpperCase() + name.substr(1)}: ${formattedValue} (${percent})`
             }
         }
     };

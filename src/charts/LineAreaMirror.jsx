@@ -100,7 +100,7 @@ function LineAreaMirror(
         xAxis: [
             {
               type: 'category',
-              data: data?.current ? data?.current.map(i => `${i.date.substring(6, 8)}`) : [],
+              data: data?.current ? data?.current.map(i => `${i.date.substring(4, 6)}/${i.date.substring(6, 8)}`) : [],
               // data: [44676, 64854, 93689, 33939, 20563, 37130, 71112, 27902, 57675, 16730, 51866, 87311, 21758, 70594, 40281, 33661, 68635, 76538, 18146, 46773, 21056, 22889, 71525, 23031, 40816, 27355, 40563, 69322, 64399, 98391, 40113],
               axisLabel: {
                 show: false // Set show to false to hide the x-axis labels
@@ -109,7 +109,7 @@ function LineAreaMirror(
             {
               gridIndex: 1,
               type: 'category',
-              data: data?.current ? data?.current.map(i => `${i.date.substring(6, 8)}`) : [],
+              data: data?.current ? data?.current.map(i => `${i.date.substring(4, 6)}/${i.date.substring(6, 8)}`) : [],
               // data: [44676, 64854, 93689, 33939, 20563, 37130, 71112, 27902, 57675, 16730, 51866, 87311, 21758, 70594, 40281, 33661, 68635, 76538, 18146, 46773, 21056, 22889, 71525, 23031, 40816, 27355, 40563, 69322, 64399, 98391, 40113],
               position: 'top'
             }
@@ -179,7 +179,58 @@ function LineAreaMirror(
             textStyle: {
                 color: '#fff',
                 fontSize: '11.5'
-            }
+            },
+            formatter: function (params) {
+              const volumeParams = params.filter(param => param.seriesName.includes('Volume'));
+              const reachParams = params.filter(param => param.seriesName.includes('Reach'));
+          
+              const formattedVolume = volumeParams.map(param => {
+                  const value = param.value;
+                  let formattedValue;
+                  if (value >= 1e9) {
+                      formattedValue = `${(value / 1e9).toFixed(1)}B`;
+                  } else if (value >= 1e6) {
+                      formattedValue = `${(value / 1e6).toFixed(1)}M`;
+                  } else if (value >= 1e3) {
+                      formattedValue = `${(value / 1e3).toFixed(1)}k`;
+                  } else {
+                      formattedValue = `${value}`;
+                  }
+
+                  // could use ${param.seriesName}: tp show the series name if needed
+                  return `<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background-color:${param.color};margin-right:5px;"></span>${formattedValue}`;
+              });
+          
+              const formattedReach = reachParams.map(param => {
+                  const value = param.value;
+                  let formattedValue;
+                  if (value >= 1e9) {
+                      formattedValue = `${(value / 1e9).toFixed(1)}B`;
+                  } else if (value >= 1e6) {
+                      formattedValue = `${(value / 1e6).toFixed(1)}M`;
+                  } else if (value >= 1e3) {
+                      formattedValue = `${(value / 1e3).toFixed(1)}k`;
+                  } else {
+                      formattedValue = `${value}`;
+                  }
+          
+                  return `<span style="display:inline-block;width:7px;height:7px;border-radius:50%;background-color:${param.color};margin-right:5px;"></span>${formattedValue}`;
+              });
+          
+              const date = params[0].axisValueLabel; // Assuming the date is in the first parameter
+              const tooltipContent = [];
+              
+              if (formattedVolume.length > 0) {
+                  tooltipContent.push(formattedVolume.join('<br>'));
+              }
+          
+              if (formattedReach.length > 0) {
+                  tooltipContent.push(formattedReach.join('<br>'));
+              }
+          
+              return `<div style="min-width:80px"><b>${date}</b><br>${tooltipContent.join('<br>')}</div>`;
+          }
+          
         },
         axisPointer: {
           link: [
