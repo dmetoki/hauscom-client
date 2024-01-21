@@ -21,7 +21,7 @@
         row-gap: 1.5rem;;
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: 200px 200px 440px 440px 440px 440px 380px 400px 400px 0px 0px;
+        grid-template-rows: 200px 200px 440px 440px 440px 440px 380px 400px 400px 500px;
         grid-template-areas:
         'chart1 chart1'
         'chart4 chart4'

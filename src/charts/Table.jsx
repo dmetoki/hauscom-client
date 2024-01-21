@@ -124,6 +124,14 @@ function Table({channels}) {
       />
         <div className='mentions-table'>
             <div>
+              <div className='header_row'>
+                <div>Date</div>
+                <div>Post</div>
+                <div>Author</div>
+                <div>Tone</div>
+                <div>Social</div>
+                <div>Reach</div>
+              </div>
                 {
                     !isLoading && items.map((item, index) => (
                         <div className='row' key={index}>
